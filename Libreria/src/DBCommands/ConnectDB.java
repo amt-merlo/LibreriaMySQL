@@ -14,8 +14,8 @@ import oracle.jdbc.OracleTypes;
  */
 public class ConnectDB {
     private static String dbPassword = "merloadmin"; // (merloadmin) -- (HlMnd2320)
-    private static String dbUser = "sys as sysdba";
-    private static String dbHost = "jdbc:oracle:thin:@localhost:1521:PROYECTOSTEC"; // (jdbc:oracle:thin:@localhost:1521:PROYECTOSTEC)-- (jdbc:oracle:thin:@localhost:1521:DBTarea1)
+    private static String dbUser = "root";
+    private static String dbHost = "jdbc:mysql://localhost:3306/LB?zeroDateTimeBehavior=CONVERT_TO_NULL"; // (jdbc:oracle:thin:@localhost:1521:PROYECTOSTEC)-- (jdbc:oracle:thin:@localhost:1521:DBTarea1)
     
     public static void insertPerson(int ID_Number, String Firstname, String Lastname, String Birthdate) throws SQLException{
         String host = dbHost;
@@ -65,11 +65,10 @@ public class ConnectDB {
         
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{?= call get_Books}");
-        st.registerOutParameter(1, OracleTypes.CURSOR);
+        CallableStatement st = con.prepareCall("{call getBooks}");
         
-        st.executeQuery();
-        ResultSet r = (ResultSet) st.getObject(1);
+        
+        ResultSet r = (ResultSet) st.executeQuery();
         
         //Lista para guardar los libros
         ArrayList<Book> libros = new ArrayList<Book>();
@@ -110,13 +109,15 @@ public class ConnectDB {
         
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{?= call get_Clasification(?)}");
-        st.setInt(2, clas_ID);
-        st.registerOutParameter(1, OracleTypes.VARCHAR);
+        CallableStatement st = con.prepareCall("{call get_Clasification(?)}");
+        st.setInt(1, clas_ID);
         
-        st.executeQuery();
+        ResultSet r = (ResultSet) st.executeQuery();
+        String clasification="";
+        while(r.next()){
+            clasification = r.getString("Clasification");
+        }
         
-        String clasification = st.getString(1);
         return clasification;
     }
     
