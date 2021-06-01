@@ -76,7 +76,7 @@ CREATE TABLE LB.Loan_Control (ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 CREATE TABLE LB.Item (ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
                       Name VARCHAR(200) NOT NULL, 
                       Description VARCHAR(200) NOT NULL, 
-                      on_loan INT,
+                      on_loan BINARY,
                       /*Campos de auditoria*/
                       CreatedOn DATE,
                       CreatedBy VARCHAR(30),
