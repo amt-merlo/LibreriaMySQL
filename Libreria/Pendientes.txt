@@ -1,0 +1,8 @@
+Cosas pendientes
+1. Agregar el campo en la tabla LB.Book para poder guardar la portada de los libros en base64, investigar cómo*
+2. Agregar un campo en la tabla LB.Loan_Control para poder identificar cúales préstamos están activos, es decir, cuáles items no se han devuelto
+3.Hacer un excel con los casos de prueba 
+4. Agregar campos de auditoría a todas las tablas
+5. Crear tabla bitácora
+6.Crear triggers para los campos de auditoría y la bitácora
+7. Hacer las consultas

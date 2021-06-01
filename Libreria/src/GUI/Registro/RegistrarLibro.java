@@ -5,18 +5,25 @@
  */
 package GUI.Registro;
 
+import DBCommands.ConnectDB;
+import static GUI.Registro.RegistrarPersona.direcciones;
+import static GUI.Registro.RegistrarPersona.emails;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.swing.Icon;
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-
 /**
  *
  * @author Allison
  */
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 public class RegistrarLibro extends javax.swing.JFrame {
+    String path;
 
     /**
      * Creates new form RegistrarLibro
@@ -24,6 +31,9 @@ public class RegistrarLibro extends javax.swing.JFrame {
     public RegistrarLibro() {
         initComponents();
         setFrame();
+        setBookClasifications();
+        this.path = "";
+        this.fileChooserCover.setVisible(false);
     }
     
     public void setFrame(){
@@ -59,7 +69,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
         lblAuthor = new javax.swing.JLabel();
         txtFieldAuthor = new javax.swing.JTextField();
         lblEdition = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtFieldEdition = new javax.swing.JTextField();
         lblPHouse = new javax.swing.JLabel();
         txtFieldPHouse = new javax.swing.JTextField();
         lblscore = new javax.swing.JLabel();
@@ -67,6 +77,10 @@ public class RegistrarLibro extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnCoverPage = new javax.swing.JButton();
+        fileChooserCover = new javax.swing.JFileChooser();
+        lblClasification = new javax.swing.JLabel();
+        cBoxClasification = new javax.swing.JComboBox<>();
         lblTitulo = new javax.swing.JLabel();
         lblLinea = new javax.swing.JLabel();
 
@@ -96,8 +110,12 @@ public class RegistrarLibro extends javax.swing.JFrame {
         lblscore.setText("Score:");
 
         btnRegister.setBackground(new java.awt.Color(187, 187, 187));
-        btnRegister.setForeground(new java.awt.Color(0, 0, 0));
         btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cargar portada aquí");
@@ -119,34 +137,58 @@ public class RegistrarLibro extends javax.swing.JFrame {
                 .addGap(106, 106, 106))
         );
 
+        btnCoverPage.setText("Upload cover page");
+        btnCoverPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCoverPageActionPerformed(evt);
+            }
+        });
+
+        lblClasification.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblClasification.setForeground(new java.awt.Color(255, 255, 255));
+        lblClasification.setText("Clasification:");
+
+        cBoxClasification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblscore, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                    .addComponent(fileChooserCover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblscore, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblClasification))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFieldScore, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(txtFieldPHouse, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(txtFieldAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(txtFieldTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(txtFieldTitle)
+                    .addComponent(txtFieldAuthor, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtFieldEdition, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtFieldPHouse, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtFieldScore, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cBoxClasification, javax.swing.GroupLayout.Alignment.TRAILING, 0, 117, Short.MAX_VALUE)
                     .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(114, 114, 114)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(btnCoverPage)
+                        .addGap(79, 79, 79))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -158,7 +200,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
                             .addComponent(txtFieldAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEdition))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -168,15 +210,24 @@ public class RegistrarLibro extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblscore)
                             .addComponent(txtFieldScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblClasification)
+                            .addComponent(cBoxClasification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCoverPage))
                         .addGap(16, 16, 16))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(25, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(fileChooserCover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 680, 290));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 680, 360));
 
         lblTitulo.setFont(new java.awt.Font("Bernard MT Condensed", 0, 36)); // NOI18N
         lblTitulo.setText("Register Book");
@@ -188,6 +239,83 @@ public class RegistrarLibro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void setBookClasifications(){
+        
+        ArrayList<String> tipos = new ArrayList<String>();
+        
+        try {
+            tipos = ConnectDB.get_BookClasifications();
+            
+            for (int i = 0; i<tipos.size(); i++){
+                
+                this.cBoxClasification.addItem(tipos.get(i));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarPersona.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al cargar las clasificaciones.");
+        }
+    }
+    private void btnCoverPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoverPageActionPerformed
+        // TODO add your handling code here:
+        this.fileChooserCover.setVisible(true);
+        int returnVal = fileChooserCover.showOpenDialog(this);
+        if (returnVal == fileChooserCover.APPROVE_OPTION) {
+            File file = fileChooserCover.getSelectedFile();
+            try {
+                if(ImageIO.read(file) == null){
+                    System.out.println("Not an image");
+                }
+                else{
+                    this.path = file.getAbsolutePath();
+                    this.jPanel2.add(new JLabel(new ImageIcon(this.path)));
+                    this.jPanel2.setVisible(true);
+                    //this.jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(this.path)));
+                    this.jLabel1.setIcon((new ImageIcon(this.path)));
+                    System.out.println(this.path);
+                }
+                // It's an image (only BMP, GIF, JPG and PNG are recognized).
+            } catch (Exception e) {
+                System.out.println("Not an image");
+            }
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+        
+        this.fileChooserCover.setVisible(false);
+    }//GEN-LAST:event_btnCoverPageActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        String title, author, publishingHouse, clasification;
+        int score, edition;
+        
+        title = txtFieldTitle.getText();
+        author = txtFieldAuthor.getText();
+        publishingHouse = txtFieldPHouse.getText();
+        score = Integer.parseInt(txtFieldScore.getText());
+        edition = Integer.parseInt(txtFieldEdition.getText());
+        clasification = cBoxClasification.getSelectedItem().toString();
+        File file = new File(this.path);
+        FileInputStream image = null;
+        try{
+            image = new FileInputStream(file);
+        }
+        catch (Exception e){
+            System.out.println("No inserta imagen");
+        }
+        try {
+            //Se ingresa el libro en la BD
+            int clasi = ConnectDB.extractClasificationID(clasification);
+            ConnectDB.crearItem(title);
+            int item = ConnectDB.extractItemID(title);
+            ConnectDB.insertBook(title,author, publishingHouse, score, edition, image,clasi, item);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarPersona.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al insertar libro");
+        }
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,12 +353,15 @@ public class RegistrarLibro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCoverPage;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JComboBox<String> cBoxClasification;
+    private javax.swing.JFileChooser fileChooserCover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblAuthor;
+    private javax.swing.JLabel lblClasification;
     private javax.swing.JLabel lblEdition;
     private javax.swing.JLabel lblLinea;
     private javax.swing.JLabel lblPHouse;
@@ -238,6 +369,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblscore;
     private javax.swing.JTextField txtFieldAuthor;
+    private javax.swing.JTextField txtFieldEdition;
     private javax.swing.JTextField txtFieldPHouse;
     private javax.swing.JTextField txtFieldScore;
     private javax.swing.JTextField txtFieldTitle;

@@ -62,7 +62,7 @@ public class Book {
     public String getPublishingHouse() {
         return PublishingHouse;
     }
-    
+
     //Sets
 
     public void setID(int ID) {
@@ -96,5 +96,7 @@ public class Book {
     public void setPublishingHouse(String PublishingHouse) {
         this.PublishingHouse = PublishingHouse;
     }
+    
+
     
 }

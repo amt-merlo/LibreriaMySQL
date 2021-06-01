@@ -8,13 +8,17 @@ package GUI;
 import GUI.Registro.RegistrarPersona;
 import GUI.Registro.RegistrarLibro;
 import GUI.Consultas.ConsultaLibros;
+import GUI.Consultas.ConsultaLibrosNoPrestados;
+import GUI.Consultas.ConsultaLibrosPrestados;
 import GUI.Consultas.ConsultaPrestamos;
+import GUI.Consultas.ConsultarPrestatarios;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import libreria.Book;
 
 /**
  *
@@ -70,6 +74,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnLoans = new javax.swing.JButton();
+        btnBorrowers = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnEditBooks = new javax.swing.JButton();
@@ -118,6 +123,11 @@ public class Menu extends javax.swing.JFrame {
                 btnRegistrarLibroMouseClicked(evt);
             }
         });
+        btnRegistrarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarLibroActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe Script", 2, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -148,7 +158,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(40, 40, 40))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 310, 150));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 310, 150));
 
         jPanel2.setBackground(new java.awt.Color(236, 209, 137));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4));
@@ -178,6 +188,16 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnBorrowers.setBackground(new java.awt.Color(187, 187, 187));
+        btnBorrowers.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnBorrowers.setForeground(new java.awt.Color(0, 0, 0));
+        btnBorrowers.setText("Borrowers");
+        btnBorrowers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBorrowersMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,10 +209,11 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(btnLoans, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(85, 85, 85))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLoans, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBorrowers, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(75, 75, 75))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,12 +222,14 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLoans)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnBorrowers)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, 310, 150));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 310, 210));
 
         jPanel3.setBackground(new java.awt.Color(172, 188, 138));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4));
@@ -220,11 +243,21 @@ public class Menu extends javax.swing.JFrame {
         btnEditBooks.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEditBooks.setForeground(new java.awt.Color(0, 0, 0));
         btnEditBooks.setText("Edit Book");
+        btnEditBooks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditBooksMouseClicked(evt);
+            }
+        });
 
         btnEditPerson.setBackground(new java.awt.Color(186, 186, 186));
         btnEditPerson.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEditPerson.setForeground(new java.awt.Color(0, 0, 0));
         btnEditPerson.setText("Edit Person");
+        btnEditPerson.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditPersonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -254,7 +287,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 560, 310, 150));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 550, 310, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -276,9 +309,9 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarPersonaActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        ConsultaLibros consulta = new ConsultaLibros();
-        consulta.setVisible(true);
+        BooksSubMenu menu = new BooksSubMenu();
+        menu.setVisible(true);
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnLoansMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoansMouseClicked
@@ -286,6 +319,28 @@ public class Menu extends javax.swing.JFrame {
         ConsultaPrestamos consulta = new ConsultaPrestamos();
         consulta.setVisible(true);
     }//GEN-LAST:event_btnLoansMouseClicked
+
+    private void btnRegistrarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarLibroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarLibroActionPerformed
+
+    private void btnEditPersonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditPersonMouseClicked
+        // TODO add your handling code here:
+        EditarPersonas editar = new EditarPersonas();
+        editar.setVisible(true);
+    }//GEN-LAST:event_btnEditPersonMouseClicked
+
+    private void btnBorrowersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBorrowersMouseClicked
+        // TODO add your handling code here:
+        ConsultarPrestatarios consulta = new ConsultarPrestatarios();
+        consulta.setVisible(true);
+    }//GEN-LAST:event_btnBorrowersMouseClicked
+
+    private void btnEditBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditBooksMouseClicked
+        // TODO add your handling code here:
+        EditarLibros editar = new EditarLibros();
+        editar.setVisible(true);
+    }//GEN-LAST:event_btnEditBooksMouseClicked
 
     /**
      * @param args the command line arguments
@@ -323,6 +378,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrowers;
     private javax.swing.JButton btnEditBooks;
     private javax.swing.JButton btnEditPerson;
     private javax.swing.JButton btnLoans;
