@@ -149,7 +149,9 @@ CREATE TABLE LB.Magazine(ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                          UpdatedOn DATE,
                          UpdatedBy VARCHAR(30));                    
 					
-                    
+CREATE TABLE LB.Users(username VARCHAR(100) PRIMARY KEY NOT NULL, 
+					  pass VARCHAR(100) NOT NULL);
+                      
 /*Se establecen las foreign keys*/ 
 
 ALTER TABLE LB.Loan_Control

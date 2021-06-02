@@ -867,4 +867,23 @@ public class ConnectDB {
         
         st.execute();
     }
+    
+    public static int validateUser(String username, String pass) throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{? = call userValidation(?, ?)}");
+        
+        st.setString(2, username);
+        st.setString(3, pass);
+        st.registerOutParameter(1,java.sql.Types.INTEGER);
+        st.execute();
+        
+        int result = st.getInt(1);
+        System.out.println(username+"|"+pass+"|"+result);
+        return result;
+    }
+
 }

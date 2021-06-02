@@ -5,6 +5,7 @@
  */
 package libreria;
 
+import GUI.Login;
 import GUI.Menu;
 
 /**
@@ -17,8 +18,10 @@ public class Libreria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Menu menu= new Menu();
-        menu.setVisible(true);
+        //LLamamos al login 
+        Login ventana = new Login();
+        ventana.setVisible(true);
+        
     }
     
 }
