@@ -413,6 +413,7 @@ public class EditarPersonas extends javax.swing.JFrame {
         Firstname = txtFieldFirstname.getText();
         Lastname = txtFieldLastname.getText();
         Birthdate = txtFieldBirthdate.getText().toString();
+        Birthdate = Birthdate.replace("-", ",");
         PersonType = comboBoxRelationship.getSelectedItem().toString();
         
         //Luego consultamos el numero de id de la relacion

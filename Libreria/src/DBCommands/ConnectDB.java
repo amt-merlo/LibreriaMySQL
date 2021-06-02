@@ -27,14 +27,18 @@ public class ConnectDB {
         String password = dbPassword;
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{call insertPerson(?, ?, ?, ?, ?)");
+        CallableStatement st = con.prepareCall("{call insertPerson(?, ?, ?, ?, ?)}");
         
         st.setInt(1, ID_Number);
         st.setInt(2, ID_PersonType);
         st.setString(3, Firstname);
         st.setString(4, Lastname);
         st.setString(5, Birthdate);
+        
         st.execute();
+        st.close();
+ 
+        System.out.println("Stored procedure called successfully!");
     }
     
     public static void insertBook(String title, String author, String publishingHouse, int score, int edition, FileInputStream image, int clasification, int idItem) throws SQLException{
@@ -42,7 +46,7 @@ public class ConnectDB {
         String user = dbUser;
         String password = dbPassword;
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{ call InsertBook(?, ?, ?, ?, ?, ?, ?, ?)");
+        CallableStatement st = con.prepareCall("{ call InsertBook(?, ?, ?, ?, ?, ?, ?, ?)}");
         System.out.println("en la llamada");
         
         st.setString(1, title);
@@ -55,6 +59,7 @@ public class ConnectDB {
         st.setBinaryStream(8, image);
         System.out.println("antes del execute");
         st.execute();
+        st.close();
         System.out.println("exito");
     }
     
@@ -63,12 +68,13 @@ public class ConnectDB {
         String user = dbUser;
         String password = dbPassword;
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{ call createItem(?)");
+        CallableStatement st = con.prepareCall("{ call createItem(?)}");
         System.out.println("en la llamada");
         
         st.setString(1, title);
         System.out.println("antes del execute");
         st.execute();
+        st.close();
         System.out.println("exito");
     }
     
@@ -95,11 +101,12 @@ public class ConnectDB {
         String password = dbPassword;
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{ call InsertEmail(?, ?)");
+        CallableStatement st = con.prepareCall("{ call InsertEmail(?, ?)}");
         
         st.setInt(1, id);
         st.setString(2, email);
         st.execute();
+        st.close();
     }
     
     public static void insertAddress(int id, String address) throws SQLException{
@@ -108,11 +115,12 @@ public class ConnectDB {
         String password = dbPassword;
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{ call InsertAddress(?, ?)");
+        CallableStatement st = con.prepareCall("{ call InsertAddress(?, ?)}");
         
         st.setInt(1, id);
         st.setString(2, address);
         st.execute();
+        st.close();
     }
     
     public static ArrayList getBooks() throws SQLException{
@@ -190,7 +198,7 @@ public class ConnectDB {
         st.setString(1, clasi);
         
         
-        ResultSet r = (ResultSet) st.executeQuery();st.executeQuery();
+        ResultSet r = (ResultSet) st.executeQuery();
         int ID=0;
         while (r.next()){
             ID = r.getInt("ID");
@@ -537,8 +545,6 @@ public class ConnectDB {
         Connection con = DriverManager.getConnection(host, user, password);
         CallableStatement st = con.prepareCall("{call get_BookClasifications}");
         
-        st.registerOutParameter(1, OracleTypes.CURSOR);
-        
         ResultSet r = (ResultSet) st.executeQuery();
         String clasificacion;
         while(r.next()){
@@ -664,7 +670,7 @@ public class ConnectDB {
         
         System.out.println("Entra a get_People()");
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{call get_People}");
+        CallableStatement st = con.prepareCall("{call getPeople}");
         
         
         ResultSet r = (ResultSet) st.executeQuery();
@@ -703,7 +709,7 @@ public class ConnectDB {
         String password = dbPassword;
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{ call update_Person(?, ?, ?, ?, ?)");
+        CallableStatement st = con.prepareCall("{ call update_Person(?, ?, ?, ?, ?)}");
         
         st.setInt(1, ID_Number);
         st.setInt(2, ID_PersonType);
@@ -712,6 +718,7 @@ public class ConnectDB {
         st.setString(5, Birthdate);
         
         st.execute();
+        st.close();
     }
     
     public static ArrayList<BorrowedBook> get_BorrowedBooks() throws SQLException{
@@ -848,7 +855,7 @@ public class ConnectDB {
         String password = dbPassword;
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{ call update_Book(?, ?, ?, ?, ?, ?, ?)");
+        CallableStatement st = con.prepareCall("{ call update_Book(?, ?, ?, ?, ?, ?, ?)}");
         
         st.setInt(1, ID);
         st.setInt(2, ID_Clasification);

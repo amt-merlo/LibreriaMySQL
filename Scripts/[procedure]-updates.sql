@@ -9,7 +9,7 @@ BEGIN
             ID_PersonType = inID_PersonType,
             Firstname = inFirstname,
             Lastname = inLastname,
-            Birthdate = TO_DATE(inBirthdate, 'yy/mm/dd')
+            Birthdate = STR_TO_DATE(inBirthdate, "%Y,%m,%d")
         WHERE 
             ID_Number = inID_Number;
 END$$

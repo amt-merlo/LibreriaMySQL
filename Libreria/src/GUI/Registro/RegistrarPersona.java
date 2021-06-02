@@ -202,6 +202,11 @@ public static ArrayList direcciones = new ArrayList();
                 btnRegisterMouseClicked(evt);
             }
         });
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         lblAddress.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblAddress.setForeground(new java.awt.Color(255, 255, 255));
@@ -407,6 +412,10 @@ public static ArrayList direcciones = new ArrayList();
         RegistrarDireccion registrar = new RegistrarDireccion();
         registrar.setVisible(true);
     }//GEN-LAST:event_btnRegAddressMouseClicked
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     
     /**

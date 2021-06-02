@@ -390,7 +390,7 @@ public class EditarLibros extends javax.swing.JFrame {
             
             ArrayList<Book> libros = new ArrayList();
             libros = ConnectDB.getBooks();
-            
+            JOptionPane.showMessageDialog(null, "Data Updated Succesfully!");
             llenarTabla(libros);
         } catch (SQLException ex) {
             Logger.getLogger(EditarLibros.class.getName()).log(Level.SEVERE, null, ex);
