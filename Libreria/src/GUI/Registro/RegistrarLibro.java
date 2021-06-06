@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
  */
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 public class RegistrarLibro extends javax.swing.JFrame {
     String path;
 
@@ -40,7 +41,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
         //Ubicarlo en el centro
         this.setLocationRelativeTo(null);
         //Color del JFrame
-        this.getContentPane().setBackground(Color.decode("#588C7E")); //F5CC7E o F5D28E o F3CC89
+        this.getContentPane().setBackground(Color.decode("#ACBC8A")); //F5CC7E o F5D28E o F3CC89
         //Imagen del JFrame
         //scaleImage();
         //Icono del JFrame
@@ -227,15 +228,15 @@ public class RegistrarLibro extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 680, 360));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 680, 360));
 
         lblTitulo.setFont(new java.awt.Font("Bernard MT Condensed", 0, 36)); // NOI18N
         lblTitulo.setText("Register Book");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 220, 60));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 220, 60));
 
         lblLinea.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLinea.setText("-------------------------------------------------");
-        getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 280, 20));
+        getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -310,6 +311,12 @@ public class RegistrarLibro extends javax.swing.JFrame {
             ConnectDB.crearItem(title);
             int item = ConnectDB.extractItemID(title);
             ConnectDB.insertBook(title,author, publishingHouse, score, edition, image,clasi, item);
+            this.txtFieldAuthor.setText("");
+            this.txtFieldEdition.setText("");
+            this.txtFieldPHouse.setText("");
+            this.txtFieldScore.setText("");
+            this.txtFieldTitle.setText("");
+            JOptionPane.showMessageDialog(null, "Succesfully Registered! :)");
             
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPersona.class.getName()).log(Level.SEVERE, null, ex);

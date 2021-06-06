@@ -9,7 +9,7 @@ CREATE PROCEDURE lb.insertPerson(IN inID_Number INT, IN inPersonType INT, IN inF
 MODIFIES SQL DATA
 BEGIN
   INSERT INTO LB.Person(ID_Number,ID_PersonType, Firstname, Lastname, Birthdate)
-  VALUES(inID_Number, inPersonType, inFirstname, inLastname, TO_DATE(inBirthdate, 'dd/mm/yyyy'));
+  VALUES(inID_Number, inPersonType, inFirstname, inLastname, STR_TO_DATE(inBirthdate,'%d,%m,%Y'));
 END$$
 
 CREATE PROCEDURE lb.insertAddress(IN inID INT, IN inAddress VARCHAR(50)) 

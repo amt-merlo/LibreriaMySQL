@@ -24,6 +24,53 @@ DROP TRIGGER LB.Genre_OnUpdate;
 DROP TRIGGER LB.Magazine_OnInsert;
 DROP TRIGGER LB.Magazine_OnUpdate;
 
+/*Se eliminan Stored Procedures*/
+DROP PROCEDURE LB.createItem;
+DROP PROCEDURE LB.get_BookClasifications;
+DROP PROCEDURE LB.get_BooksFiltered1;
+DROP PROCEDURE LB.get_BooksFiltered2;
+DROP PROCEDURE LB.get_BooksFiltered3;
+DROP PROCEDURE LB.get_BooksFiltered4;
+DROP PROCEDURE LB.get_BooksFiltered5;
+DROP PROCEDURE LB.get_BooksFiltered6;
+DROP PROCEDURE LB.get_BooksFiltered7;
+DROP PROCEDURE LB.get_BorrowedBooks;
+DROP PROCEDURE LB.get_BorrowedBooksByID;
+DROP PROCEDURE LB.get_Clasification;
+DROP PROCEDURE LB.get_ClasificationID;
+DROP PROCEDURE LB.get_ItemID;
+DROP PROCEDURE LB.get_Loans;
+DROP PROCEDURE LB.get_notBorrowed;
+DROP PROCEDURE LB.get_PersonType;
+DROP PROCEDURE LB.get_PersonTypeByID;
+DROP PROCEDURE LB.get_PersonTypeID;
+DROP PROCEDURE LB.getBooks;
+DROP PROCEDURE LB.getPeople;
+DROP PROCEDURE LB.insertAddress;
+DROP PROCEDURE LB.insertBook;
+DROP PROCEDURE LB.insertEmail;
+DROP PROCEDURE LB.insertPerson;
+DROP PROCEDURE LB.update_Book;
+DROP PROCEDURE LB.update_Person;
+
+/*Se eliminan funciones*/
+DROP FUNCTION LB.userValidation;
+
+/*Se eliminan las tablas*/
+DROP TABLE LB.book;
+DROP TABLE LB.Loan_Control;
+DROP TABLE LB.Email;
+DROP TABLE LB.Address;
+DROP TABLE LB.Person;
+DROP TABLE LB.Book_Clasification;
+DROP TABLE LB.VideoGame;
+DROP TABLE LB.Magazine;
+DROP TABLE LB.Movie;
+DROP TABLE LB.Item;
+DROP TABLE LB.Genre;
+DROP TABLE LB.Person_Type;
+DROP TABLE LB.Users;
+
 CREATE TABLE LB.Person (ID_Number INT PRIMARY KEY NOT NULL,
                         ID_PersonType INT NOT NULL,
                         Firstname VARCHAR(40) NOT NULL, 
@@ -76,7 +123,7 @@ CREATE TABLE LB.Loan_Control (ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 CREATE TABLE LB.Item (ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
                       Name VARCHAR(200) NOT NULL, 
                       Description VARCHAR(200) NOT NULL, 
-                      on_loan BINARY,
+                      on_loan INT,
                       /*Campos de auditoria*/
                       CreatedOn DATE,
                       CreatedBy VARCHAR(30),

@@ -342,7 +342,8 @@ public static ArrayList direcciones = new ArrayList();
         
         Firstname = txtFieldFirstname.getText();
         Lastname = txtFieldLastname.getText();
-        Birthdate = txtFieldDay.getText()+","+txtFieldMonth.getText()+","+txtFieldYear.getText();
+        Birthdate = txtFieldMonth.getText()+","+txtFieldDay.getText()+","+txtFieldYear.getText();
+        Birthdate = Birthdate.toString();
         ID_Number = Integer.parseInt(txtFieldID.getText());
         PersonType = comboBoxRelationship.getSelectedItem().toString();
         

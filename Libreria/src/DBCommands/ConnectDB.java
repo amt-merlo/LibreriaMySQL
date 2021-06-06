@@ -33,7 +33,7 @@ public class ConnectDB {
         st.setInt(2, ID_PersonType);
         st.setString(3, Firstname);
         st.setString(4, Lastname);
-        st.setString(5, Birthdate);
+        st.setString(5, "01,01,2000");
         
         st.execute();
         st.close();
@@ -85,13 +85,15 @@ public class ConnectDB {
         
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{?= call get_ItemID(?)}");
-        st.setString(2, title);
-        st.registerOutParameter(1, OracleTypes.VARCHAR);
+        CallableStatement st = con.prepareCall("{call get_ItemID(?)}");
+        st.setString(1, title);
         
-        st.executeQuery();
+        ResultSet r = (ResultSet) st.executeQuery();
         
-        int ID = st.getInt(1);
+        int ID = 0;
+        while(r.next()){
+            ID = r.getInt("ID");
+        }
         return ID;
     }
     

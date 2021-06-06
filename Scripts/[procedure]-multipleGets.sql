@@ -62,7 +62,7 @@ MODIFIES SQL DATA
 BEGIN
   SELECT Clasification
   FROM LB.Book_Clasification
-  WHERE ID = pID;
+  WHERE ID = inID;
 END$$
 
 CREATE PROCEDURE lb.get_notBorrowed()
@@ -105,4 +105,30 @@ BEGIN
   SELECT ID
   FROM LB.Item
   WHERE Name = inItem;
+END$$
+
+CREATE PROCEDURE lb.get_BookClasifications()
+MODIFIES SQL DATA
+BEGIN
+  select Clasification from LB.book_clasification;
+END$$
+
+DELIMITER $$
+
+CREATE PROCEDURE lb.get_PersonTypeByID(IN inID INT)
+MODIFIES SQL DATA
+BEGIN
+  SELECT Type 
+  FROM LB.person_type 
+  WHERE ID = inID;
+END$$
+
+DELIMITER $$
+
+CREATE PROCEDURE lb.get_ItemID(IN inName VARCHAR(100))
+MODIFIES SQL DATA
+BEGIN
+  SELECT ID 
+  FROM LB.Item
+  WHERE Name = inName;
 END$$

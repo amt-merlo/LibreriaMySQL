@@ -30,7 +30,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
         //Ubicarlo en el centro
         this.setLocationRelativeTo(null);
         //Color del JFrame
-        this.getContentPane().setBackground(Color.decode("#588C7E")); //F5CC7E o F5D28E o F3CC89
+        this.getContentPane().setBackground(Color.decode("#ACBC8A")); //F5CC7E o F5D28E o F3CC89
         //Imagen del JFrame
         //scaleImage();
         //Icono del JFrame
@@ -98,6 +98,11 @@ public class RegistrarLibro extends javax.swing.JFrame {
         btnRegister.setBackground(new java.awt.Color(187, 187, 187));
         btnRegister.setForeground(new java.awt.Color(0, 0, 0));
         btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cargar portada aquí");
@@ -176,18 +181,22 @@ public class RegistrarLibro extends javax.swing.JFrame {
                         .addContainerGap(25, Short.MAX_VALUE))))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 680, 290));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 680, 290));
 
         lblTitulo.setFont(new java.awt.Font("Bernard MT Condensed", 0, 36)); // NOI18N
         lblTitulo.setText("Register Book");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 220, 60));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, 60));
 
         lblLinea.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLinea.setText("-------------------------------------------------");
-        getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 280, 20));
+        getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 280, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments
