@@ -9,6 +9,7 @@ import GUI.Consultas.ConsultaLibros;
 import GUI.Consultas.ConsultaLibrosNoPrestados;
 import GUI.Consultas.ConsultaLibrosPrestados;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -25,7 +26,12 @@ public class BooksSubMenu extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.decode("#ACBC8A")); //F5CC7E o F5D28E o F3CC89 | Azul 0a043c
         //Centrar
         this.setLocationRelativeTo(null);
+        
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import libreria.Book;
@@ -46,6 +47,10 @@ public class ConsultaLibros extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         //Color del JFrame
         this.getContentPane().setBackground(Color.decode("#DB6B5C")); //F5CC7E o F5D28E o F3CC89
+        
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
     }
     
     private void llenarTabla(ArrayList<Book> libros){
@@ -128,6 +133,11 @@ public class ConsultaLibros extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableBooks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBooksMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableBooks);
 
         lblTitle.setFont(new java.awt.Font("Segoe Script", 0, 24)); // NOI18N
@@ -139,23 +149,22 @@ public class ConsultaLibros extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Cargar portada aquí");
 
         javax.swing.GroupLayout panelPortadaLayout = new javax.swing.GroupLayout(panelPortada);
         panelPortada.setLayout(panelPortadaLayout);
         panelPortadaLayout.setHorizontalGroup(
             panelPortadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPortadaLayout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+            .addGroup(panelPortadaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelPortadaLayout.setVerticalGroup(
             panelPortadaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPortadaLayout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -215,6 +224,11 @@ public class ConsultaLibros extends javax.swing.JFrame {
         btnRestart.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRestartMouseClicked(evt);
+            }
+        });
+        btnRestart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestartActionPerformed(evt);
             }
         });
 
@@ -373,8 +387,30 @@ public class ConsultaLibros extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaLibros.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jLabel2.setIcon(null);
         llenarTabla(libros);
     }//GEN-LAST:event_btnRestartMouseClicked
+
+    private void tableBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBooksMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tableBooks.getModel();
+        int row = tableBooks.getSelectedRow();
+        
+        int ID = (int) model.getValueAt(row, 0);
+        try {
+            //Sacamos el coverpage
+            String coverPage = ConnectDB.get_BookCoverPage(ID);
+            this.jLabel2.setIcon((new ImageIcon(coverPage)));
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaLibros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_tableBooksMouseClicked
+
+    private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRestartActionPerformed
 
     /**
      * @param args the command line arguments

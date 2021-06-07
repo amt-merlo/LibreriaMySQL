@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +30,10 @@ public class Login extends javax.swing.JFrame {
         
         //Centrar
         this.setLocationRelativeTo(null);
+        
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
     }
 
     /**
@@ -150,6 +155,7 @@ public class Login extends javax.swing.JFrame {
             //Se validan las credenciales
             int registrado = ConnectDB.validateUser(username, password);
             if (registrado == 1){
+                this.setVisible(false);
                 Menu menu = new Menu();
                 menu.setVisible(true);
             }else{

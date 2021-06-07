@@ -18,8 +18,9 @@ public class Book {
     private String Title;
     private String Author;
     private String PublishingHouse;
+    private String CoverPage;
 
-    public Book(int ID, int ID_Item, int Edition, int Score, String Clasification, String Title, String Author, String PublishingHouse) {
+    public Book(int ID, int ID_Item, int Edition, int Score, String Clasification, String Title, String Author, String PublishingHouse, String CoverPage) {
         this.ID = ID;
         this.ID_Item = ID_Item;
         this.Edition = Edition;
@@ -28,6 +29,7 @@ public class Book {
         this.Title = Title;
         this.Author = Author;
         this.PublishingHouse = PublishingHouse;
+        this.CoverPage = CoverPage;
     }
 
     //Gets
@@ -61,6 +63,10 @@ public class Book {
 
     public String getPublishingHouse() {
         return PublishingHouse;
+    }
+    
+    public String getCoverPage() {
+        return CoverPage;
     }
 
     //Sets

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import libreria.Loan;
@@ -33,6 +34,10 @@ public class EditarPersonas extends javax.swing.JFrame {
         
         //Centrar ventana
         this.setLocationRelativeTo(null);
+        
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
         
         //Declarar la lista de personas
         ArrayList<Person> personas = new ArrayList();

@@ -9,18 +9,22 @@ import DBCommands.ConnectDB;
 import static GUI.Registro.RegistrarPersona.direcciones;
 import static GUI.Registro.RegistrarPersona.emails;
 import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import org.apache.commons.io.FileUtils;
 /**
  *
  * @author Allison
  */
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 public class RegistrarLibro extends javax.swing.JFrame {
@@ -48,12 +52,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
         this.setIconImage(img.getImage());
     }
-    public void scaleImage(){
-        ImageIcon imagen1 = new ImageIcon(getClass().getResource("/Images/leyendo.gif"));
-        //Icon fondo1 = new ImageIcon(imagen1.getImage().getScaledInstance(lblFondo.getWidth(), lblFondo.getHeight(), Image.SCALE_DEFAULT));
-        //lblFondo.setIcon(fondo1);
-        this.repaint();   
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,19 +75,19 @@ public class RegistrarLibro extends javax.swing.JFrame {
         lblscore = new javax.swing.JLabel();
         txtFieldScore = new javax.swing.JTextField();
         btnRegister = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        btnCoverPage = new javax.swing.JButton();
         fileChooserCover = new javax.swing.JFileChooser();
         lblClasification = new javax.swing.JLabel();
         cBoxClasification = new javax.swing.JComboBox<>();
         lblTitulo = new javax.swing.JLabel();
         lblLinea = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnCoverPage = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(242, 180, 118));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
 
         lblTitle.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -118,33 +117,6 @@ public class RegistrarLibro extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cargar portada aquí");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(106, 106, 106))
-        );
-
-        btnCoverPage.setText("Upload cover page");
-        btnCoverPage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCoverPageActionPerformed(evt);
-            }
-        });
-
         lblClasification.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblClasification.setForeground(new java.awt.Color(255, 255, 255));
         lblClasification.setText("Clasification:");
@@ -167,7 +139,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
                             .addComponent(lblscore, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblClasification))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFieldTitle)
                     .addComponent(txtFieldAuthor, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -176,67 +148,86 @@ public class RegistrarLibro extends javax.swing.JFrame {
                     .addComponent(txtFieldScore, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cBoxClasification, javax.swing.GroupLayout.Alignment.TRAILING, 0, 117, Short.MAX_VALUE)
                     .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(btnCoverPage)
-                        .addGap(79, 79, 79))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))))
+                .addGap(366, 366, 366))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTitle))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblAuthor)
-                            .addComponent(txtFieldAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEdition))
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPHouse)
-                            .addComponent(txtFieldPHouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblscore)
-                            .addComponent(txtFieldScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblClasification)
-                            .addComponent(cBoxClasification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFieldTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTitle))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAuthor)
+                    .addComponent(txtFieldAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEdition))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPHouse)
+                    .addComponent(txtFieldPHouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblscore)
+                    .addComponent(txtFieldScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblClasification)
+                    .addComponent(cBoxClasification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCoverPage))
+                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(fileChooserCover, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 680, 360));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 470, 360));
 
-        lblTitulo.setFont(new java.awt.Font("Bernard MT Condensed", 0, 36)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Bernard MT Condensed", 0, 40)); // NOI18N
         lblTitulo.setText("Register Book");
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 220, 60));
 
         lblLinea.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLinea.setText("-------------------------------------------------");
         getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 20));
+
+        jPanel2.setBackground(new java.awt.Color(219, 107, 92));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 120, 310, 360));
+
+        btnCoverPage.setText("Upload cover page");
+        btnCoverPage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCoverPageActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCoverPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -257,6 +248,18 @@ public class RegistrarLibro extends javax.swing.JFrame {
             System.out.println("Error al cargar las clasificaciones.");
         }
     }
+    
+    public static String convertFileContentToBlob(String filePath) throws IOException {
+   byte[] fileContent = null;
+   try {
+	fileContent = FileUtils.readFileToByteArray(new File(filePath));
+   } catch (IOException e) {
+	throw new IOException("Unable to convert file to byte array. " +
+              e.getMessage());
+   }
+   return fileContent.toString();
+}
+    
     private void btnCoverPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoverPageActionPerformed
         // TODO add your handling code here:
         this.fileChooserCover.setVisible(true);
@@ -274,10 +277,12 @@ public class RegistrarLibro extends javax.swing.JFrame {
                     //this.jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource(this.path)));
                     this.jLabel1.setIcon((new ImageIcon(this.path)));
                     System.out.println(this.path);
+                    System.out.println("Path: "+this.path);
+                    
                 }
                 // It's an image (only BMP, GIF, JPG and PNG are recognized).
             } catch (Exception e) {
-                System.out.println("Not an image");
+                System.out.println("Not an image2");
             }
         } else {
             System.out.println("File access cancelled by user.");
@@ -286,9 +291,11 @@ public class RegistrarLibro extends javax.swing.JFrame {
         this.fileChooserCover.setVisible(false);
     }//GEN-LAST:event_btnCoverPageActionPerformed
 
+    
+    
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        String title, author, publishingHouse, clasification;
+        String title, author, publishingHouse, clasification,imagePath;
         int score, edition;
         
         title = txtFieldTitle.getText();
@@ -297,10 +304,13 @@ public class RegistrarLibro extends javax.swing.JFrame {
         score = Integer.parseInt(txtFieldScore.getText());
         edition = Integer.parseInt(txtFieldEdition.getText());
         clasification = cBoxClasification.getSelectedItem().toString();
+        imagePath = this.path;
         File file = new File(this.path);
         FileInputStream image = null;
         try{
             image = new FileInputStream(file);
+            
+           
         }
         catch (Exception e){
             System.out.println("No inserta imagen");
@@ -310,7 +320,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
             int clasi = ConnectDB.extractClasificationID(clasification);
             ConnectDB.crearItem(title);
             int item = ConnectDB.extractItemID(title);
-            ConnectDB.insertBook(title,author, publishingHouse, score, edition, image,clasi, item);
+            ConnectDB.insertBook(title,author, publishingHouse, score, edition, imagePath,clasi, item);
             this.txtFieldAuthor.setText("");
             this.txtFieldEdition.setText("");
             this.txtFieldPHouse.setText("");

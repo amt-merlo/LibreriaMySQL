@@ -9,6 +9,7 @@ import GUI.Registro.RegistrarPersona;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,6 +24,9 @@ public class RegistrarCorreo extends javax.swing.JFrame {
         initComponents();
         this.getContentPane().setBackground(Color.decode("#588C7E")); //F5CC7E o F5D28E o F3CC89
         this.setLocationRelativeTo(null);
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
     }
 
     /**

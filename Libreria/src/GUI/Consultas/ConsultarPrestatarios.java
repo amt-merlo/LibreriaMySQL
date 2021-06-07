@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import libreria.Loan;
@@ -32,6 +33,9 @@ public class ConsultarPrestatarios extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.decode("#F2B476")); //F5CC7E o F5D28E o F3CC89 | Azul 0a043c
         //Centrar
         this.setLocationRelativeTo(null);
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
         
         //Declarar arreglo de prestatarios
         ArrayList<Person> borrowers = new ArrayList();

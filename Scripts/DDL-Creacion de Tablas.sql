@@ -136,7 +136,7 @@ CREATE TABLE LB.Book (ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                       Title VARCHAR(200) NOT NULL, 
                       Author VARCHAR(200) NOT NULL, 
                       EDITION INT NOT NULL, 
-                      CoverPage BLOB, 
+                      CoverPage VARCHAR(200), 
                       PublishingHouse VARCHAR(100) NOT NULL, 
                       Score INT NOT NULL,
                       /*Campos de auditoria*/

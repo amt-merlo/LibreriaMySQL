@@ -41,7 +41,7 @@ public class ConnectDB {
         System.out.println("Stored procedure called successfully!");
     }
     
-    public static void insertBook(String title, String author, String publishingHouse, int score, int edition, FileInputStream image, int clasification, int idItem) throws SQLException{
+    public static void insertBook(String title, String author, String publishingHouse, int score, int edition, String image, int clasification, int idItem) throws SQLException{
         String host = dbHost;
         String user = dbUser;
         String password = dbPassword;
@@ -56,7 +56,7 @@ public class ConnectDB {
         st.setString(5, publishingHouse);
         st.setInt(6, score);
         st.setInt(7, edition);
-        st.setBinaryStream(8, image);
+        st.setString(8, image);
         System.out.println("antes del execute");
         st.execute();
         st.close();
@@ -143,7 +143,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, imagePath;
         
         
         while(r.next()){
@@ -159,9 +159,10 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
-            
+            imagePath = r.getString("CoverPage");
+            System.out.println(imagePath);
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, imagePath);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -216,7 +217,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -246,8 +247,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -263,7 +265,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -293,8 +295,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -310,7 +313,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -340,8 +343,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -357,7 +361,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -387,8 +391,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -404,7 +409,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -433,8 +438,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -450,7 +456,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -479,8 +485,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -496,7 +503,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score;
-        String Title, Author, PublishingHouse, Clasification;
+        String Title, Author, PublishingHouse, Clasification, CoverPage;
         
         //Se conecta con la BD
         String host = dbHost;
@@ -525,8 +532,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             //Se agrega el libro a la lista 
             libros.add(book);
@@ -825,7 +833,7 @@ public class ConnectDB {
         
         //Variables para datos de cada libro
         int ID, ID_Clasification, ID_Item, Edition, Score, Days_Amount;
-        String Title, Author, PublishingHouse, Clasification, Borrower;
+        String Title, Author, PublishingHouse, Clasification, Borrower, CoverPage;
         
         
         while(r.next()){
@@ -841,8 +849,9 @@ public class ConnectDB {
             Author = r.getString("Author");
             PublishingHouse = r.getString("PublishingHouse");
             Clasification = extractClasification(ID_Clasification);
+            CoverPage = r.getString("CoverPage");
             //Creamos un nuevo objeto de tipo libro
-            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse);
+            Book book = new Book(ID, ID_Item, Edition, Score, Clasification, Title, Author, PublishingHouse, CoverPage);
             
             
             
@@ -886,6 +895,25 @@ public class ConnectDB {
         int result = st.getInt(1);
         System.out.println(username+"|"+pass+"|"+result);
         return result;
+    }
+    
+    public static String get_BookCoverPage(int ID) throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call get_BookCoverPage(?)}");
+        st.setInt(1, ID);
+        
+        ResultSet r = (ResultSet) st.executeQuery();
+        
+        String coverPage="";
+        while(r.next()){
+            coverPage = r.getString("CoverPage");
+        }
+        return coverPage;
     }
 
 }

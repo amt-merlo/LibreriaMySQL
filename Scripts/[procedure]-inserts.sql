@@ -26,7 +26,7 @@ BEGIN
   VALUES(inPersonID, inEmail);
 END$$
 
-CREATE PROCEDURE lb.insertBook(IN inTitle VARCHAR(100), IN inClasification INT, IN inItem INT, IN inAuthor VARCHAR(100), IN inPublishingHouse VARCHAR(100), IN inScore INT, IN inEdition INT, IN inCoverPage BLOB) 
+CREATE PROCEDURE lb.insertBook(IN inTitle VARCHAR(100), IN inClasification INT, IN inItem INT, IN inAuthor VARCHAR(100), IN inPublishingHouse VARCHAR(100), IN inScore INT, IN inEdition INT, IN inCoverPage VARCHAR(100)) 
 MODIFIES SQL DATA
 BEGIN
   INSERT INTO LB.BOOK(Title, ID_Clasification, ID_Item, Author, EDITION, CoverPage, PublishingHouse, Score)

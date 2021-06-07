@@ -132,3 +132,11 @@ BEGIN
   FROM LB.Item
   WHERE Name = inName;
 END$$
+DELIMITER $$
+CREATE PROCEDURE lb.get_BookCoverPage(IN inID INT)
+MODIFIES SQL DATA
+BEGIN
+  SELECT CoverPage 
+  FROM LB.Book
+  WHERE ID = inID;
+END$$

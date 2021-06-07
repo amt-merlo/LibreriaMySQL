@@ -29,6 +29,9 @@ public static ArrayList direcciones = new ArrayList();
         initComponents();
         this.getContentPane().setBackground(Color.decode("#FBCF86")); //#FBCF86
         this.setLocationRelativeTo(null);
+        //Icono del JFrame
+        ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
+        this.setIconImage(img.getImage());
         setPersonTypes();
         
     }
