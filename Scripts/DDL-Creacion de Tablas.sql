@@ -70,6 +70,7 @@ DROP TABLE LB.Item;
 DROP TABLE LB.Genre;
 DROP TABLE LB.Person_Type;
 DROP TABLE LB.Users;
+DROP TABLE LB.LogBook;
 
 CREATE TABLE LB.Person (ID_Number INT PRIMARY KEY NOT NULL,
                         ID_PersonType INT NOT NULL,
@@ -198,6 +199,14 @@ CREATE TABLE LB.Magazine(ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 					
 CREATE TABLE LB.Users(username VARCHAR(100) PRIMARY KEY NOT NULL, 
 					  pass VARCHAR(100) NOT NULL);
+                      
+CREATE TABLE LB.LogBook(ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+						ChangeDate DATE NOT NULL,
+                        ChangeHour VARCHAR(20) NOT NULL,
+                        ChangeType VARCHAR(80) NOT NULL,
+                        Object VARCHAR(80) NOT NULL,
+                        ChangeDescription VARCHAR(200) NOT NULL,
+                        Username VARCHAR(100) NOT NULL);
                       
 /*Se establecen las foreign keys*/ 
 

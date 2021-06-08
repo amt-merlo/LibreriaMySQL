@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import libreria.Book;
 import libreria.BorrowedBook;
+import libreria.Cambio;
 import libreria.Loan;
 import libreria.Person;
 import oracle.jdbc.OracleTypes;
@@ -916,4 +917,69 @@ public class ConnectDB {
         return coverPage;
     }
 
+     public static ArrayList<Cambio> get_LogBook() throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call get_LogBook}");
+        
+        ResultSet r = (ResultSet) st.executeQuery();
+        
+        int ID;
+        String date, hour, type, object, description, username;
+        ArrayList<Cambio> LogBook = new ArrayList();
+        
+        while(r.next()){
+            ID = r.getInt("ID");
+            date = r.getString("ChangeDate");
+            hour = r.getString("ChangeHour");
+            type = r.getString("ChangeType");
+            object = r.getString("Object");
+            description = r.getString("ChangeDescription");
+            username = r.getString("Username");
+            
+            Cambio cambio = new Cambio(ID, date, hour, type, object, description, username);
+            LogBook.add(cambio);
+        }
+        return LogBook;
+    }
+     
+     public static ArrayList<Cambio> get_LogBookFiltered(String tipo, String objeto, String usuario, String date1, String date2, String hour1, String hour2) throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call LogBookFiltered(?, ?, ?, ?, ?, ?, ?)}");
+        st.setString(1, tipo);
+        st.setString(2, objeto);
+        st.setString(3, usuario);
+        st.setString(4, date1);
+        st.setString(5, date2);
+        st.setString(6, hour1);
+        st.setString(7, hour2);
+        ResultSet r = (ResultSet) st.executeQuery();
+        
+        int ID;
+        String date, hour, type, object, description, username;
+        ArrayList<Cambio> LogBook = new ArrayList();
+        
+        while(r.next()){
+            ID = r.getInt("ID");
+            date = r.getString("ChangeDate");
+            hour = r.getString("ChangeHour");
+            type = r.getString("ChangeType");
+            object = r.getString("Object");
+            description = r.getString("ChangeDescription");
+            username = r.getString("Username");
+            
+            Cambio cambio = new Cambio(ID, date, hour, type, object, description, username);
+            LogBook.add(cambio);
+        }
+        return LogBook;
+    }
 }

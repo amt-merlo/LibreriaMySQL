@@ -54,9 +54,16 @@ public class ConsultaLibros extends javax.swing.JFrame {
     }
     
     private void llenarTabla(ArrayList<Book> libros){
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+            //Para hacer que las celdas no puedan editarse pero si seleccionarse
+            @Override
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
+        
         int cantidadLibros = libros.size();
-       
+        
         //Columnas
         model.addColumn("ID");
         model.addColumn("Title");
@@ -78,6 +85,7 @@ public class ConsultaLibros extends javax.swing.JFrame {
                                           actual.getPublishingHouse(), 
                                           actual.getScore()});
                 tableBooks.setModel(model);
+                tableBooks.setEnabled(false);
                 lblCantidad.setText(Integer.toString(cantidadLibros));
             }
         }else{

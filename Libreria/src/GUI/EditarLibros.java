@@ -65,7 +65,13 @@ public class EditarLibros extends javax.swing.JFrame {
 
     
     private void llenarTabla(ArrayList<Book> libros){
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+            //Para hacer que las celdas no puedan editarse pero si seleccionarse
+            @Override
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         int cantidadLibros = libros.size();
        
         //Columnas

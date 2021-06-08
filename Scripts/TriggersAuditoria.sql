@@ -6,6 +6,9 @@ FOR EACH ROW
 BEGIN
 	SET NEW.createdon = NOW();
 	SET NEW.CREATEDBY = CURRENT_USER();
+    
+    INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+    VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Person', 'New person inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Person*/
@@ -17,6 +20,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Person', 'Person data updated on database', CURRENT_USER());
 END$$
 
 
@@ -28,6 +34,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+    VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Email', 'New email inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Email*/
@@ -38,6 +47,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Email', 'Person email updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Address*/
@@ -48,6 +60,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Address', 'New address inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Address*/
@@ -58,6 +73,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Address', 'Person address updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Person_Type*/
@@ -68,6 +86,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'PersonType', 'New person type inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Person_Type*/
@@ -78,6 +99,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Person_Type', 'Person type updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Loan_Control*/
@@ -88,6 +112,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER();
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'LoanControl', 'New loan inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Loan_Control*/
@@ -98,6 +125,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Loan_Control', 'Loan updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Item*/
@@ -108,6 +138,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Item', 'New item inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE paraLB.Item*/
@@ -118,6 +151,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Item', 'Item updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Book*/
@@ -128,6 +164,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Book', 'New book inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Book*/
@@ -137,7 +176,10 @@ FOR EACH ROW
 
 BEGIN
   SET NEW.UPDATEDON = NOW();
-  SET NEW.UPDATEDBY = CURRENT_USER();  
+  SET NEW.UPDATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Book', 'Book data updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Book_Clasification*/
@@ -148,6 +190,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Book_Clasification', 'New book clasification inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Book_Clasification*/
@@ -158,6 +203,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Book_Clasification', 'Book clasification updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Videogame*/
@@ -168,6 +216,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'VideoGame', 'New videogame inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Videogame*/
@@ -178,6 +229,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();  
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'VideoGame', 'Videogame data updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Movie*/
@@ -188,6 +242,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Movie', 'New movie inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Movie*/
@@ -198,6 +255,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();  
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Movie', 'Movie data updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Genre*/
@@ -208,6 +268,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER(); 
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Genre', 'New genre inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Genre*/
@@ -218,6 +281,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();  
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Genre', 'Genre updated on database', CURRENT_USER());
 END$$
 
 /*Trigger INSERT para LB.Magazine*/
@@ -228,6 +294,9 @@ FOR EACH ROW
 BEGIN
   SET NEW.createdon = NOW();
   SET NEW.CREATEDBY = CURRENT_USER();  
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Insert', 'Magazine', 'New magazine inserted on database', CURRENT_USER());
 END$$
 
 /*Trigger UPDATE para LB.Magazine*/
@@ -238,5 +307,8 @@ FOR EACH ROW
 BEGIN
   SET NEW.UPDATEDON = NOW();
   SET NEW.UPDATEDBY = CURRENT_USER();  
+  
+  INSERT INTO LB.LogBook(ChangeDate, ChangeHour, ChangeType, Object, ChangeDescription, Username)
+  VALUES(NOW(), CURRENT_TIME(), 'Update', 'Magazine', 'Magazine data updated on database', CURRENT_USER());
 END$$
 DELIMITER ;
