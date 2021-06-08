@@ -13,6 +13,7 @@ import GUI.Consultas.ConsultaLibrosNoPrestados;
 import GUI.Consultas.ConsultaLibrosPrestados;
 import GUI.Consultas.ConsultaPrestamos;
 import GUI.Consultas.ConsultarPrestatarios;
+import GUI.Consultas.Estadisticas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -77,6 +78,7 @@ public class Menu extends javax.swing.JFrame {
         btnLoans = new javax.swing.JButton();
         btnBorrowers = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnStatistics = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnEditBooks = new javax.swing.JButton();
@@ -210,6 +212,16 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnStatistics.setBackground(new java.awt.Color(187, 187, 187));
+        btnStatistics.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnStatistics.setForeground(new java.awt.Color(0, 0, 0));
+        btnStatistics.setText("Statistics");
+        btnStatistics.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStatisticsMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -225,7 +237,8 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLoans, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBorrowers, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(75, 75, 75))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -241,10 +254,12 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnBorrowers)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnStatistics)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 310, 240));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 310, 290));
 
         jPanel3.setBackground(new java.awt.Color(172, 188, 138));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4));
@@ -302,7 +317,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 570, 310, 150));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 610, 310, 150));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -363,6 +378,12 @@ public class Menu extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void btnStatisticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticsMouseClicked
+        // TODO add your handling code here:
+        Estadisticas ventana = new Estadisticas();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnStatisticsMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -405,6 +426,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnLoans;
     private javax.swing.JButton btnRegistrarLibro;
     private javax.swing.JButton btnRegistrarPersona;
+    private javax.swing.JButton btnStatistics;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

@@ -65,12 +65,18 @@ public class ConsultaLibrosPrestados extends javax.swing.JFrame {
         //Contamos la cantidad
         int total = libros.size();
         int cantPrestados = prestados.size();
-        
+        System.out.println("PRESTADOS: "+cantPrestados);
+        float porcentaje = 0;
+        float fPrestados = cantPrestados;
+        float fTotal = total;
         //Calculamos el porcentaje
-        int porcentaje = (cantPrestados / total) * 100;
+        if(total>0){
+            porcentaje = (fPrestados / fTotal) * 100;
+        }
+        
         
         //Lo ponemos en el label
-        lblPorcentaje.setText(Integer.toString(porcentaje)+"%");
+        lblPorcentaje.setText(Float.toString(porcentaje)+"%");
         
     }
     

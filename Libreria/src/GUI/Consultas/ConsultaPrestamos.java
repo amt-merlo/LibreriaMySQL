@@ -81,10 +81,7 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
             tableLoans.setModel(new DefaultTableModel());
             //lblCantidad.setText("0");
             JOptionPane.showMessageDialog(null,"No hay coincidencias.");
-            
         }
-        
-        
         
     }
     /**

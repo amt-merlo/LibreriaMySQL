@@ -85,7 +85,6 @@ public class ConsultaLibros extends javax.swing.JFrame {
                                           actual.getPublishingHouse(), 
                                           actual.getScore()});
                 tableBooks.setModel(model);
-                tableBooks.setEnabled(false);
                 lblCantidad.setText(Integer.toString(cantidadLibros));
             }
         }else{
