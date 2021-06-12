@@ -326,6 +326,7 @@ public class RegistrarLibro extends javax.swing.JFrame {
             this.txtFieldPHouse.setText("");
             this.txtFieldScore.setText("");
             this.txtFieldTitle.setText("");
+            jLabel1.setIcon(null);
             JOptionPane.showMessageDialog(null, "Succesfully Registered! :)");
             
         } catch (SQLException ex) {

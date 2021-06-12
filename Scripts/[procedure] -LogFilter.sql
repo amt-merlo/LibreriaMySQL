@@ -1,7 +1,14 @@
 DELIMITER $$
+/*
 CREATE PROCEDURE LB.LogBookFiltered(IN inType VARCHAR(100), IN inObject VARCHAR(100), IN inUser VARCHAR(100))
 MODIFIES SQL DATA
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+
 	IF (char_length(inType)>0 AND char_length(inObject)>0 AND char_length(inUser)>0) THEN
 		SELECT * FROM LB.LogBook
         WHERE ChangeType = inType AND Object = inObject AND Username = inUser;
@@ -31,11 +38,18 @@ BEGIN
             WHERE Username = inUser;
 	END IF;
 END$$
-
+*/
 DELIMITER $$
 CREATE PROCEDURE LB.LogBookFiltered(IN inType VARCHAR(100), IN inObject VARCHAR(100), IN inUser VARCHAR(100), IN inHour1 VARCHAR(40), inHour2 VARCHAR(40), IN inDate1 VARCHAR(40), IN inDate2 VARCHAR(40))
 MODIFIES SQL DATA
 BEGIN
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+    
 	IF (char_length(inDate1)>0 AND char_length(inDate2)>0 AND char_length(inHour1)>0 AND char_length(inHour2)>0) THEN
     
 		/*Comparamos el resto de campos*/

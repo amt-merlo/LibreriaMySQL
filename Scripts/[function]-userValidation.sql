@@ -3,7 +3,11 @@ DELIMITER $$
 CREATE FUNCTION LB.userValidation(inUsername VARCHAR(100), inPassword VARCHAR(100))
   RETURNS INT
   BEGIN
-
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		SELECT 'An error has occurred, usernotfound';
+	END;
+    
     IF EXISTS(select * from lb.users where username = inUsername and pass = inPassword) 
 		THEN RETURN 1;
     ELSE 

@@ -22,6 +22,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import libreria.Book;
 
+
 /**
  *
  * @author Allison
@@ -380,7 +381,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnStatisticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticsMouseClicked
         // TODO add your handling code here:
-        Estadisticas ventana = new Estadisticas();
+        SubMenuE ventana = new SubMenuE();
         ventana.setVisible(true);
     }//GEN-LAST:event_btnStatisticsMouseClicked
 

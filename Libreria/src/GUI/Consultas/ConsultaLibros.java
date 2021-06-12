@@ -407,7 +407,9 @@ public class ConsultaLibros extends javax.swing.JFrame {
         int ID = (int) model.getValueAt(row, 0);
         try {
             //Sacamos el coverpage
+            
             String coverPage = ConnectDB.get_BookCoverPage(ID);
+         
             this.jLabel2.setIcon((new ImageIcon(coverPage)));
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaLibros.class.getName()).log(Level.SEVERE, null, ex);

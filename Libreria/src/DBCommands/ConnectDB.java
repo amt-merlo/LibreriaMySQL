@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package DBCommands;
+import libreria.TopBook;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import libreria.Book;
 import libreria.BorrowedBook;
 import libreria.Cambio;
@@ -981,5 +984,85 @@ public class ConnectDB {
             LogBook.add(cambio);
         }
         return LogBook;
+    }
+     
+     public static Map<String, Integer> get_ClasificationCantidades() throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call get_ClasificationCantidades}");
+        CallableStatement st2 = con.prepareCall("{call get_CCFinal}");
+        ResultSet r = (ResultSet) st.executeQuery();
+        ResultSet r2 = (ResultSet) st2.executeQuery();
+        
+        int ID, cant;
+        String clasification;
+        Map<String, Integer> cantidades = new HashMap<String, Integer>();
+        
+        while(r2.next()){
+            ID = r2.getInt("ID");
+            cant = r2.getInt("cant");
+            clasification = extractClasification(ID);
+            System.out.println(Integer.toString(ID)+"  "+ Integer.toString(cant));
+            
+            cantidades.put(clasification, cant);
+        }
+        return cantidades;
+    }
+     
+     public static Map<String, Integer> get_ClasificationCantidadesPrestados() throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call get_ClasificationCantidadesPrestados}");
+        CallableStatement st2 = con.prepareCall("{call get_CCFinalPrestados}");
+        ResultSet r = (ResultSet) st.executeQuery();
+        ResultSet r2 = (ResultSet) st2.executeQuery();
+        
+        int ID, cant;
+        String clasification;
+        Map<String, Integer> cantidades = new HashMap<String, Integer>();
+        
+        while(r2.next()){
+            ID = r2.getInt("ID");
+            cant = r2.getInt("cant");
+            clasification = extractClasification(ID);
+            System.out.println(Integer.toString(ID)+"  "+ Integer.toString(cant));
+            
+            cantidades.put(clasification, cant);
+        }
+        return cantidades;
+    }
+     
+     public static ArrayList<TopBook> get_Top10() throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call get_Top10}");
+        ResultSet r = (ResultSet) st.executeQuery();
+        
+        int ID, cant;
+        String Title;
+        ArrayList<TopBook> top10 = new ArrayList();
+        
+        
+        while(r.next()){
+            ID = r.getInt("ID");
+            cant = r.getInt("cant");
+            Title = r.getString("Title");
+            
+            TopBook nuevo = new TopBook(ID, cant, Title);
+            top10.add(nuevo);
+        }
+        return top10;
     }
 }

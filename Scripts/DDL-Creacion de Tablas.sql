@@ -52,6 +52,9 @@ DROP PROCEDURE LB.insertEmail;
 DROP PROCEDURE LB.insertPerson;
 DROP PROCEDURE LB.update_Book;
 DROP PROCEDURE LB.update_Person;
+DROP PROCEDURE LB.get_logbook;
+DROP PROCEDURE LB.LogBookFiltered;
+DROP PROCEDURE LB.get_BookCoverPage;
 
 /*Se eliminan funciones*/
 DROP FUNCTION LB.userValidation;

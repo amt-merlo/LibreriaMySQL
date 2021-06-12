@@ -3,6 +3,11 @@ DELIMITER $$
 CREATE PROCEDURE lb.update_Person(IN inID_Number INT, IN inID_PersonType INT, IN inFirstname VARCHAR(50), IN inLastname VARCHAR(50), IN inBirthdate VARCHAR(30)) 
 MODIFIES SQL DATA
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
 	UPDATE
             LB.Person
         SET
@@ -17,6 +22,11 @@ END$$
 CREATE PROCEDURE lb.update_Book (IN inID INT, IN inID_Clasification INT, IN inTitle VARCHAR(100), IN inAuthor VARCHAR(100), IN inEDITION INT, IN inPublishingHouse VARCHAR(100), IN inScore INT)
 MODIFIES SQL DATA
 BEGIN
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
 	UPDATE
             LB.Book
         SET

@@ -124,7 +124,7 @@ BEGIN
 END$$
 
 DELIMITER $$
-
+/*
 CREATE PROCEDURE lb.get_ItemID(IN inName VARCHAR(100))
 MODIFIES SQL DATA
 BEGIN
@@ -132,7 +132,8 @@ BEGIN
   FROM LB.Item
   WHERE Name = inName;
 END$$
-
+*/
+DELIMITER $$
 CREATE PROCEDURE lb.get_BookCoverPage(IN inID INT)
 MODIFIES SQL DATA
 BEGIN
@@ -140,9 +141,82 @@ BEGIN
   FROM LB.Book
   WHERE ID = inID;
 END$$
-DELIMITER $$
+
 CREATE PROCEDURE lb.get_logbook()
 MODIFIES SQL DATA
 BEGIN
 	SELECT * FROM LB.LogBook;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE lb.get_ClasificationCantidades()
+MODIFIES SQL DATA
+BEGIN
+  /*Definimos las variables del while*/ 
+	SET @cantCategorias = NULL;
+    SET @contador = NULL;
+	SELECT @cantCategorias; SET @cantCategorias = (SELECT COUNT(*) FROM LB.Book_Clasification);
+	SELECT @contador; SET @contador = 1;
+    
+  /*Definimos la tabla temporal*/
+  DROP TABLE IF EXISTS LB.cantxClasificacion;
+  CREATE TABLE LB.cantxClasificacion(ID INT PRIMARY KEY, CANT INT);
+  
+    WHILE @contador <= @cantCategorias DO
+        SELECT @cant; SET @cant = (SELECT COUNT(*) FROM LB.Book WHERE ID_Clasification = @contador );
+        
+        INSERT INTO LB.cantxClasificacion(ID, CANT)
+        VALUES(@contador, @cant);
+        SET @contador = @contador + 1;
+    END WHILE;
+    SELECT * FROM LB.cantxClasificacion;
+END$$
+
+
+CREATE PROCEDURE LB.get_CCFinal()
+MODIFIES SQL DATA
+BEGIN
+	SELECT * FROM LB.cantxclasificacion;
+END$$
+
+CREATE PROCEDURE lb.get_ClasificationCantidadesPrestados()
+MODIFIES SQL DATA
+BEGIN
+  /*Definimos las variables del while*/ 
+	SET @cantCategorias = NULL;
+    SET @contador = NULL;
+	SELECT @cantCategorias; SET @cantCategorias = (SELECT COUNT(*) FROM LB.Book_Clasification);
+	SELECT @contador; SET @contador = 1;
+    
+  /*Definimos la tabla temporal*/
+  DROP TABLE IF EXISTS LB.cantxClasificacionPrestados;
+  CREATE TABLE LB.cantxClasificacionPrestados(ID INT PRIMARY KEY, CANT INT);
+  
+    WHILE @contador <= @cantCategorias DO
+        SELECT @cant; SET @cant = (SELECT COUNT(*) FROM LB.Book INNER JOIN LB.Item 
+    ON LB.Book.ID_Item = LB.Item.ID AND LB.Item.On_Loan = 1  WHERE ID_Clasification = @contador);
+        
+        INSERT INTO LB.cantxClasificacionPrestados(ID, CANT)
+        VALUES(@contador, @cant);
+        SET @contador = @contador + 1;
+    END WHILE;
+    SELECT * FROM LB.cantxClasificacionPrestados;
+END$$
+
+CREATE PROCEDURE LB.get_CCFinalPrestados()
+MODIFIES SQL DATA
+BEGIN
+	SELECT * FROM LB.cantxClasificacionPrestados;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE LB.get_Top10()
+MODIFIES SQL DATA 
+BEGIN 
+	select LB.Book.id, count(LB.Loan_Control.id_item) as cant, LB.Book.Title
+	from lb.loan_control
+
+	INNER JOIN LB.BOOK ON LB.Loan_control.ID_Item = LB.Book.ID_Item
+	group by ID_Person
+	order by 2 desc;
 END$$
