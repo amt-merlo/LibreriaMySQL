@@ -1,4 +1,4 @@
-DELIMITER $$
+
 /*
 CREATE PROCEDURE LB.LogBookFiltered(IN inType VARCHAR(100), IN inObject VARCHAR(100), IN inUser VARCHAR(100))
 MODIFIES SQL DATA
@@ -38,6 +38,12 @@ BEGIN
             WHERE Username = inUser;
 	END IF;
 END$$
+*/
+
+/*
+Description: Procedure that get data from the logbook 
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
 */
 DELIMITER $$
 CREATE PROCEDURE LB.LogBookFiltered(IN inType VARCHAR(100), IN inObject VARCHAR(100), IN inUser VARCHAR(100), IN inHour1 VARCHAR(40), inHour2 VARCHAR(40), IN inDate1 VARCHAR(40), IN inDate2 VARCHAR(40))

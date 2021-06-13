@@ -1,3 +1,9 @@
+/*
+Description: Insert data on catalog tables.
+Author: Allison M. Merlo
+Creation Date: 30/05/2021
+*/
+
 /*Filling of the catalog Person_Type*/
 INSERT INTO LB.Person_Type (type) 
 VALUES ('Student');

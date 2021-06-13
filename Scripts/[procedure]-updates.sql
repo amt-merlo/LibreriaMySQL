@@ -1,5 +1,12 @@
+/*
+Description: Create the procedures to update the tables from the application.
+Author: Allison M. Merlo
+Creation Date: 30/05/2021
+*/
+
 DELIMITER $$
 
+/*Update data from a particular person identified by the ID_Number*/
 CREATE PROCEDURE lb.update_Person(IN inID_Number INT, IN inID_PersonType INT, IN inFirstname VARCHAR(50), IN inLastname VARCHAR(50), IN inBirthdate VARCHAR(30)) 
 MODIFIES SQL DATA
 BEGIN
@@ -19,6 +26,7 @@ BEGIN
             ID_Number = inID_Number;
 END$$
 
+/*Updates the data from a particular book identified by the ID*/
 CREATE PROCEDURE lb.update_Book (IN inID INT, IN inID_Clasification INT, IN inTitle VARCHAR(100), IN inAuthor VARCHAR(100), IN inEDITION INT, IN inPublishingHouse VARCHAR(100), IN inScore INT)
 MODIFIES SQL DATA
 BEGIN

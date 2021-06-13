@@ -1,3 +1,8 @@
+/*
+Description: Procedure that check if the user is registered in the database
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 DELIMITER $$
 
 CREATE FUNCTION LB.userValidation(inUsername VARCHAR(100), inPassword VARCHAR(100))

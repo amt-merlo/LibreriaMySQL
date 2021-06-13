@@ -1,3 +1,10 @@
+/*
+Description: Drop, create and alter of all the required tables for the implementation.
+Author: Allison M. Merlo
+Creation Date: 30/05/2021
+*/
+
+
 /*Se eliminan los triggers*/
 DROP TRIGGER LB.Person_OnInsert;
 DROP TRIGGER LB.Person_OnUpdate;

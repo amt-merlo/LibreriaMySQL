@@ -1,6 +1,10 @@
 DELIMITER $$
 
-
+/*
+Description: Procedure that get data of the books that are borrowed to show on the app.
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_BorrowedBooks()
 MODIFIES SQL DATA
 BEGIN
@@ -23,13 +27,22 @@ BEGIN
     ON LB.Item.ID = lb.loan_control.id_item;
 END$$
 
+/*
+Description: Procedure that get data of the loans registered to show on the app.
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_Loans()
 MODIFIES SQL DATA
 BEGIN
   SELECT * FROM LB.Loan_Control;
 END$$
 
-
+/*
+Description: Procedure that get data of the books that are borrowed by someone in particular identified by the id to show on the app.
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_BorrowedBooksByID(IN inID INT)
 MODIFIES SQL DATA
 BEGIN
@@ -57,6 +70,11 @@ BEGIN
     ORDER BY LB.Book.Title;
 END$$
 
+/*
+Description: Procedure that get the clasification of a book by the id.
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_Clasification(IN inID INT)
 MODIFIES SQL DATA
 BEGIN
@@ -65,6 +83,11 @@ BEGIN
   WHERE ID = inID;
 END$$
 
+/*
+Description: Procedure that get data of the non borrowed books to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_notBorrowed()
 MODIFIES SQL DATA
 BEGIN
@@ -77,12 +100,22 @@ BEGIN
     ORDER BY LB.Book.Title;
 END$$
 
+/*
+Description: Procedure that get the person types to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_PersonType()
 MODIFIES SQL DATA
 BEGIN
   select * from LB.person_type;
 END$$
 
+/*
+Description: Procedure that get the person type identified by the id to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_PersonTypeID(IN inType VARCHAR(80))
 MODIFIES SQL DATA
 BEGIN
@@ -91,6 +124,11 @@ BEGIN
   WHERE Type = inType;
 END$$
 
+/*
+Description: Procedure that get the clasification id of a book identified by the clasification, to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_ClasificationID(IN inClasification VARCHAR(80))
 MODIFIES SQL DATA
 BEGIN
@@ -99,6 +137,11 @@ BEGIN
   WHERE Clasification = inClasification;
 END$$
 
+/*
+Description: Procedure that get the Item ID identified by the name of the item, to show on the app
+Author: Gabriela Gutiérrez
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_ItemID(IN inItem VARCHAR(80))
 MODIFIES SQL DATA
 BEGIN
@@ -107,6 +150,11 @@ BEGIN
   WHERE Name = inItem;
 END$$
 
+/*
+Description: Procedure that get all the clasifications to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_BookClasifications()
 MODIFIES SQL DATA
 BEGIN
@@ -115,6 +163,11 @@ END$$
 
 DELIMITER $$
 
+/*
+Description: Procedure that get the person type identified by the id, to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_PersonTypeByID(IN inID INT)
 MODIFIES SQL DATA
 BEGIN
@@ -123,17 +176,12 @@ BEGIN
   WHERE ID = inID;
 END$$
 
-DELIMITER $$
 /*
-CREATE PROCEDURE lb.get_ItemID(IN inName VARCHAR(100))
-MODIFIES SQL DATA
-BEGIN
-  SELECT ID 
-  FROM LB.Item
-  WHERE Name = inName;
-END$$
+Description: Procedure that get coverpage of a book identified by id, to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
 */
-DELIMITER $$
+
 CREATE PROCEDURE lb.get_BookCoverPage(IN inID INT)
 MODIFIES SQL DATA
 BEGIN
@@ -142,13 +190,22 @@ BEGIN
   WHERE ID = inID;
 END$$
 
+/*
+Description: Procedure that get the logbook data, to show on the app
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_logbook()
 MODIFIES SQL DATA
 BEGIN
 	SELECT * FROM LB.LogBook;
 END$$
 
-DELIMITER $$
+/*
+Description: Procedure that get amount of books per clasification
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_ClasificationCantidades()
 MODIFIES SQL DATA
 BEGIN
@@ -172,13 +229,22 @@ BEGIN
     SELECT * FROM LB.cantxClasificacion;
 END$$
 
-
+/*
+Description: Procedure that calls the LB.cantxclasificacion; procedure 
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE LB.get_CCFinal()
 MODIFIES SQL DATA
 BEGIN
 	SELECT * FROM LB.cantxclasificacion;
 END$$
 
+/*
+Description: Procedure that get amount of borrowed books per clasification
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE lb.get_ClasificationCantidadesPrestados()
 MODIFIES SQL DATA
 BEGIN
@@ -209,7 +275,11 @@ BEGIN
 	SELECT * FROM LB.cantxClasificacionPrestados;
 END$$
 
-DELIMITER $$
+/*
+Description: Procedure that get the top 10 of the most borrowed books
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
 CREATE PROCEDURE LB.get_Top10()
 MODIFIES SQL DATA 
 BEGIN 
@@ -219,4 +289,21 @@ BEGIN
 	INNER JOIN LB.BOOK ON LB.Loan_control.ID_Item = LB.Book.ID_Item
 	group by ID_Person
 	order by 2 desc;
+END$$
+
+/*
+Description: Procedure that get data from the table person
+Author: Allison M. Merlo
+Creation Date: 2/06/2021
+*/
+CREATE PROCEDURE lb.getPeople()
+MODIFIES SQL DATA
+BEGIN
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		ROLLBACK;
+		SELECT 'An error has occurred, operation rollbacked and the stored procedure was terminated';
+	END;
+    
+  SELECT * FROM lb.person;
 END$$
