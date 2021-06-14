@@ -11,10 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import libreria.Book;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -51,6 +53,8 @@ public class ConsultaLibros extends javax.swing.JFrame {
         //Icono del JFrame
         ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
         this.setIconImage(img.getImage());
+        
+        
     }
     
     private void llenarTabla(ArrayList<Book> libros){

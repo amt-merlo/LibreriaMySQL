@@ -25,24 +25,28 @@ public class ConnectDB {
     private static String dbUser = "root";
     private static String dbHost = "jdbc:mysql://localhost:3306/LB?zeroDateTimeBehavior=CONVERT_TO_NULL"; // (jdbc:oracle:thin:@localhost:1521:PROYECTOSTEC)-- (jdbc:oracle:thin:@localhost:1521/DBTarea1)
     
-    public static void insertPerson(int ID_Number, int ID_PersonType, String Firstname, String Lastname, String Birthdate) throws SQLException{
+    public static int insertPerson(int ID_Number, int ID_PersonType, String Firstname, String Lastname, String Birthdate) throws SQLException{
         String host = dbHost;
         String user = dbUser;
         String password = dbPassword;
         
         Connection con = DriverManager.getConnection(host, user, password);
-        CallableStatement st = con.prepareCall("{call insertPerson(?, ?, ?, ?, ?)}");
+        CallableStatement st = con.prepareCall("{? = call insertPerson(?, ?, ?, ?, ?)}");
         
-        st.setInt(1, ID_Number);
-        st.setInt(2, ID_PersonType);
-        st.setString(3, Firstname);
-        st.setString(4, Lastname);
-        st.setString(5, "01,01,2000");
+        st.setInt(2, ID_Number);
+        st.setInt(3, ID_PersonType);
+        st.setString(4, Firstname);
+        st.setString(5, Lastname);
+        st.setString(6, "01,01,2000");
         
+        st.registerOutParameter(1,java.sql.Types.INTEGER);
         st.execute();
+        
+        int result = st.getInt(1);
         st.close();
  
         System.out.println("Stored procedure called successfully!");
+        return result;
     }
     
     public static void insertBook(String title, String author, String publishingHouse, int score, int edition, String image, int clasification, int idItem) throws SQLException{

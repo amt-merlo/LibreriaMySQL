@@ -13,7 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import static javax.swing.GroupLayout.Alignment.values;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,13 +30,56 @@ public static ArrayList direcciones = new ArrayList();
      */
     public RegistrarPersona() {
         initComponents();
+        //Color of the Jframe
         this.getContentPane().setBackground(Color.decode("#FBCF86")); //#FBCF86
+        //Center the Jframe
         this.setLocationRelativeTo(null);
-        //Icono del JFrame
+        //Icon of the JFrame
         ImageIcon img = new ImageIcon("C:\\Users\\Allison\\Documents\\GitHub\\Libreria\\LOGO.png");
         this.setIconImage(img.getImage());
+        
+        //Set options in ComboBox PersonTypes
         setPersonTypes();
         
+        //Disable day comboBox
+        cBoxDay.setEnabled(false);
+        
+        //Set options in year comboBox
+        for (int i = 1940; i<=2021; i++){
+            cBoxYear.addItem(String.valueOf(i));
+        }
+        
+    }
+    
+    private void setComboBoxOptions(){
+        int month = Integer.parseInt((String) cBoxMonth.getSelectedItem());
+        cBoxDay.setModel(new DefaultComboBoxModel());
+        cBoxDay.setEnabled(true);
+        
+        //The amount of days depends on the month selected
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                for(int i = 1; i<=31; i++){
+                    cBoxDay.addItem(String.valueOf(i));
+                }
+                break;
+            case 2:
+                for(int i = 1; i<=29; i++){
+                    cBoxDay.addItem(String.valueOf(i));
+                }
+                break;
+            default:
+                for(int i = 1; i<=30; i++){
+                    cBoxDay.addItem(String.valueOf(i));
+                }
+                break;
+        }
     }
     
     /**
@@ -60,12 +106,12 @@ public static ArrayList direcciones = new ArrayList();
         txtFieldLastname = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblBirthdate = new javax.swing.JLabel();
-        txtFieldMonth = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtFieldDay = new javax.swing.JTextField();
-        txtFieldYear = new javax.swing.JTextField();
+        cBoxDay = new javax.swing.JComboBox<>();
+        cBoxMonth = new javax.swing.JComboBox<>();
+        cBoxYear = new javax.swing.JComboBox<>();
         btnRegister = new javax.swing.JButton();
         lblAddress = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
@@ -155,6 +201,25 @@ public static ArrayList direcciones = new ArrayList();
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Year:");
 
+        cBoxDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", " " }));
+
+        cBoxMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cBoxMonth.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cBoxMonthMouseClicked(evt);
+            }
+        });
+        cBoxMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cBoxMonthActionPerformed(evt);
+            }
+        });
+        cBoxMonth.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cBoxMonthKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -166,33 +231,31 @@ public static ArrayList direcciones = new ArrayList();
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFieldMonth)
-                    .addComponent(txtFieldDay, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(txtFieldYear))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cBoxDay, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cBoxMonth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cBoxYear, 0, 100, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtFieldYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtFieldDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addGap(6, 6, 6)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(cBoxMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cBoxDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         btnRegister.setBackground(new java.awt.Color(172, 188, 138));
@@ -324,11 +387,14 @@ public static ArrayList direcciones = new ArrayList();
     }// </editor-fold>//GEN-END:initComponents
     private void setPersonTypes(){
         
+        //ArrayList to save the person types
         ArrayList<String> tipos = new ArrayList<String>();
         
         try {
+            //Get the types from the db
             tipos = ConnectDB.get_PersonType();
             
+            //Set the types on the comboBox
             for (int i = 0; i<tipos.size(); i++){
                 
                 comboBoxRelationship.addItem(tipos.get(i));
@@ -339,65 +405,82 @@ public static ArrayList direcciones = new ArrayList();
         }
     }
     private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
-        // TODO add your handling code here:
+        
         String Firstname, Lastname, Birthdate, PersonType;
         int ID_Number, ID_PersonType;
         
+        // Get the data 
         Firstname = txtFieldFirstname.getText();
         Lastname = txtFieldLastname.getText();
-        Birthdate = txtFieldMonth.getText()+","+txtFieldDay.getText()+","+txtFieldYear.getText();
-        Birthdate = Birthdate.toString();
+        Birthdate = cBoxMonth.getSelectedItem()+","+cBoxDay.getSelectedItem()+","+cBoxYear.getSelectedItem();
         ID_Number = Integer.parseInt(txtFieldID.getText());
         PersonType = comboBoxRelationship.getSelectedItem().toString();
-        
-        
         
         
         try {
             //Se hace la consulta por el ID del tipo de persona
             ID_PersonType = ConnectDB.get_PersonTypeID(PersonType);
             //Se ingresa la persona en la BD
-            ConnectDB.insertPerson(ID_Number,ID_PersonType, Firstname, Lastname, Birthdate);
-            
-            //Si hay emails registrados
-            if (emails.size()>0){
-                
-                //se recorren
-                for (int i=0; i<emails.size(); i++){
-                    String email = emails.get(i).toString();
-                    
-                    //Se agregan a la BD
-                    ConnectDB.insertEmail(ID_Number, email);
+            int result = ConnectDB.insertPerson(ID_Number,ID_PersonType, Firstname, Lastname, Birthdate);
+            //If the function returns a 0, it means that the ID wasn´t registered
+            if (result == 0){
+                //If there are emails on the list
+                if (emails.size()>0){
+
+                    //se recorren
+                    for (int i=0; i<emails.size(); i++){
+                        String email = emails.get(i).toString();
+
+                        //Se agregan a la BD
+                        ConnectDB.insertEmail(ID_Number, email);
+                    }
+                     //vaciar las listas
+                    emails.clear();
                 }
-                 //vaciar las listas
+
+                //Si hay direcciones registradas
+                if (direcciones.size()>0){
+
+                    //Se recorren
+                    for (int i = 0; i<direcciones.size(); i++){
+                        String direccion = direcciones.get(i).toString();
+
+                        //Se agregan a la BD
+                        ConnectDB.insertAddress(ID_Number, direccion);
+                    }
+                    
+                }
+                JOptionPane.showMessageDialog(null,"Person registered succesfully! :)");
+                //Ponemos los campos en blanco
+                txtFieldID.setText(null);
+                txtFieldFirstname.setText(null);
+                txtFieldLastname.setText(null);
+                cBoxDay.setEnabled(false); 
                 emails.clear();
+                direcciones.clear();
+            }else{
+                JOptionPane.showMessageDialog(null, "ID already registered on the system! Check that the ID is correct, also you can go and check the people that is already registeted.");
+                //Ponemos los campos en blanco
+                txtFieldFirstname.setText(null);
+                txtFieldLastname.setText(null);
+                emails.clear();
+                direcciones.clear();
             }
             
-            //Si hay direcciones registradas
-            if (direcciones.size()>0){
-                
-                //Se recorren
-                for (int i = 0; i<direcciones.size(); i++){
-                    String direccion = direcciones.get(i).toString();
-                    
-                    //Se agregan a la BD
-                    ConnectDB.insertAddress(ID_Number, direccion);
-                }
-            }
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarPersona.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al insertar persona");
+            
+            //Ponemos los campos en blanco
+            txtFieldID.setText(null);
+            txtFieldFirstname.setText(null);
+            txtFieldLastname.setText(null);
+            cBoxDay.setEnabled(false); 
+            emails.clear();
+            direcciones.clear();
         }
         
-       //Ponemos los campos en blanco
-       txtFieldID.setText(null);
-       txtFieldFirstname.setText(null);
-       txtFieldLastname.setText(null);
-       txtFieldDay.setText(null);
-       txtFieldMonth.setText(null);
-       txtFieldYear.setText(null);
-       emails.clear();
-       direcciones.clear();
+       
     }//GEN-LAST:event_btnRegisterMouseClicked
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
@@ -420,6 +503,21 @@ public static ArrayList direcciones = new ArrayList();
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void cBoxMonthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cBoxMonthMouseClicked
+        // TODO add your handling code here:
+        setComboBoxOptions();
+    }//GEN-LAST:event_cBoxMonthMouseClicked
+
+    private void cBoxMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBoxMonthActionPerformed
+        // TODO add your handling code here:
+        setComboBoxOptions();
+    }//GEN-LAST:event_cBoxMonthActionPerformed
+
+    private void cBoxMonthKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cBoxMonthKeyPressed
+        // TODO add your handling code here:
+        setComboBoxOptions();
+    }//GEN-LAST:event_cBoxMonthKeyPressed
 
     
     /**
@@ -462,6 +560,9 @@ public static ArrayList direcciones = new ArrayList();
     private javax.swing.JButton btnRegAddress;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnRegisterEmail;
+    private javax.swing.JComboBox<String> cBoxDay;
+    private javax.swing.JComboBox<String> cBoxMonth;
+    private javax.swing.JComboBox<String> cBoxYear;
     private javax.swing.JComboBox<String> comboBoxRelationship;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -479,11 +580,8 @@ public static ArrayList direcciones = new ArrayList();
     private javax.swing.JLabel lblLinea;
     private javax.swing.JLabel lblRelationship;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtFieldDay;
     private javax.swing.JTextField txtFieldFirstname;
     private javax.swing.JTextField txtFieldID;
     private javax.swing.JTextField txtFieldLastname;
-    private javax.swing.JTextField txtFieldMonth;
-    private javax.swing.JTextField txtFieldYear;
     // End of variables declaration//GEN-END:variables
 }

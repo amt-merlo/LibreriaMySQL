@@ -4,6 +4,20 @@ Author: Allison M. Merlo
 Creation Date: 2/06/2021
 */
 DELIMITER $$
+CREATE FUNCTION LB.insertPerson(inID_Number INT, inPersonType INT, inFirstname VARCHAR(40), inLastname VARCHAR(40), inBirthdate VARCHAR(40))
+  RETURNS INT
+ BEGIN
+    
+    IF EXISTS(select * from lb.person where ID_Number = inID_Number) 
+		THEN RETURN 1;
+    ELSE 
+		INSERT INTO LB.Person(ID_Number,ID_PersonType, Firstname, Lastname, Birthdate)
+		VALUES(inID_Number, inPersonType, inFirstname, inLastname, STR_TO_DATE(inBirthdate,'%d,%m,%Y'));
+		RETURN 0;
+    END IF;
+  END $$
+  
+/*
 CREATE PROCEDURE lb.insertPerson(IN inID_Number INT, IN inPersonType INT, IN inFirstname VARCHAR(40), IN inLastname VARCHAR(40), IN inBirthdate VARCHAR(40)) 
 MODIFIES SQL DATA
 BEGIN
@@ -13,7 +27,7 @@ BEGIN
   INSERT INTO LB.Person(ID_Number,ID_PersonType, Firstname, Lastname, Birthdate)
   VALUES(inID_Number, inPersonType, inFirstname, inLastname, STR_TO_DATE(inBirthdate,'%d,%m,%Y'));
 END$$
-
+*/
 /*
 Description: Procedure that insert data in the table address
 Author: Allison M. Merlo

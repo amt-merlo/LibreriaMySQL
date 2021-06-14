@@ -14,6 +14,7 @@ import GUI.Consultas.ConsultaLibrosPrestados;
 import GUI.Consultas.ConsultaPrestamos;
 import GUI.Consultas.ConsultarPrestatarios;
 import GUI.Consultas.Estadisticas;
+import GUI.Registro.RegistrarPrestamo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -73,6 +74,7 @@ public class Menu extends javax.swing.JFrame {
         btnRegistrarPersona = new javax.swing.JButton();
         btnRegistrarLibro = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnRegisterLoan = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -94,12 +96,12 @@ public class Menu extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Bernard MT Condensed", 0, 60)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Personal Collection");
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         lblLinea.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblLinea.setForeground(new java.awt.Color(255, 255, 255));
         lblLinea.setText("---------------------------------------------------------");
-        getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
+        getContentPane().add(lblLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(242, 180, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4));
@@ -139,16 +141,31 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Register");
 
+        btnRegisterLoan.setBackground(new java.awt.Color(187, 187, 187));
+        btnRegisterLoan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegisterLoan.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegisterLoan.setText("Register Loan");
+        btnRegisterLoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegisterLoanMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(88, 88, 88)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnRegistrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarPersona)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRegisterLoan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegistrarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegistrarPersona)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -160,10 +177,12 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnRegistrarPersona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegistrarLibro)
-                .addGap(40, 40, 40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegisterLoan)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 310, 150));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 310, 170));
 
         jPanel2.setBackground(new java.awt.Color(236, 209, 137));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 4));
@@ -385,6 +404,11 @@ public class Menu extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnStatisticsMouseClicked
 
+    private void btnRegisterLoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterLoanMouseClicked
+        RegistrarPrestamo ventana = new RegistrarPrestamo();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnRegisterLoanMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -425,6 +449,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnEditBooks;
     private javax.swing.JButton btnEditPerson;
     private javax.swing.JButton btnLoans;
+    private javax.swing.JButton btnRegisterLoan;
     private javax.swing.JButton btnRegistrarLibro;
     private javax.swing.JButton btnRegistrarPersona;
     private javax.swing.JButton btnStatistics;
