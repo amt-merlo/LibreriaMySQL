@@ -61,7 +61,9 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
         int cantidadPrestamos = prestamos.size();
        
         //Columnas
-        model.addColumn("Borrower");
+        model.addColumn("ID");
+        model.addColumn("Borrower ID");
+        model.addColumn("Item ID");
         model.addColumn("Loan Date");
         model.addColumn("Return Date");
         model.addColumn("Days amount ");
@@ -70,7 +72,9 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
             for(int i=0; i<cantidadPrestamos; i++){
                 Loan actual = prestamos.get(i);
                 System.out.println(actual.getID());
-                model.addRow(new Object[]{actual.getID_Person(),
+                model.addRow(new Object[]{actual.getID(),
+                                          actual.getID_Person(),
+                                          actual.getID_Item(),
                                           actual.getLoan_Date(),
                                           actual.getReturn_Date(), 
                                           actual.getDays_Amount()});
@@ -96,6 +100,7 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLoans = new javax.swing.JTable();
+        btnSetReturn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(172, 188, 138));
 
@@ -124,6 +129,16 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableLoans);
 
+        btnSetReturn.setBackground(new java.awt.Color(236, 209, 137));
+        btnSetReturn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSetReturn.setForeground(new java.awt.Color(255, 255, 255));
+        btnSetReturn.setText("Mark as Returned");
+        btnSetReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSetReturnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +151,10 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
                         .addGap(58, 58, 58))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(287, 287, 287))))
+                        .addGap(287, 287, 287))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSetReturn)
+                        .addGap(381, 381, 381))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,11 +163,50 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
                 .addComponent(lblTitle)
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSetReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSetReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSetReturnMouseClicked
+        // get the selected row
+        DefaultTableModel model = (DefaultTableModel) tableLoans.getModel();
+        int row = tableLoans.getSelectedRow();
+        // get the loan ID
+        int IDLoan = (int) model.getValueAt(row, 0);
+        int IDItem = (int) model.getValueAt(row, 2);
+        
+        try {
+            int result = ConnectDB.returnBook(IDLoan, IDItem);
+            if (result == 0){
+                JOptionPane.showMessageDialog(null, "Book returned succesfully! :)");
+            }else if(result == 2){
+                JOptionPane.showMessageDialog(null, "The book does not exist or has ben returned already");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error, the book couldn´t be returned :(");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Se hace la consulta
+        ArrayList<Loan> prestamos = new ArrayList();
+        
+        try {
+            //Se llena
+            prestamos = ConnectDB.get_Loans();
+            System.out.println(prestamos.size());
+            //Se settea la tabla
+            llenarTabla(prestamos);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnSetReturnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -187,6 +244,7 @@ public class ConsultaPrestamos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSetReturn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tableLoans;

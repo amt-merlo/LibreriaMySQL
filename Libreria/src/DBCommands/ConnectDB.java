@@ -1060,13 +1060,67 @@ public class ConnectDB {
         
         
         while(r.next()){
-            ID = r.getInt("ID");
+            ID = r.getInt("id");
             cant = r.getInt("cant");
             Title = r.getString("Title");
             
             TopBook nuevo = new TopBook(ID, cant, Title);
             top10.add(nuevo);
+            
+            System.out.println("Top10 "+ID+" "+cant+" "+Title);
         }
         return top10;
     }
+     
+     public static int insertLoan(int ID_Person, int ID_Item, String loan_date, String return_Date) throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call insertloan(?, ?, ?, ?)}");
+        
+        st.setInt(1, ID_Person);
+        st.setInt(2, ID_Item);
+        st.setString(3, loan_date);
+        st.setString(4, return_Date);
+        
+        
+        ResultSet r = (ResultSet) st.executeQuery();
+        int result = 7;
+        
+        while(r.next()){
+        result = r.getInt("resultado");
+         
+        }
+        
+        
+        System.out.println("Stored procedure called successfully!");
+        return result;
+    }
+     
+     public static int returnBook(int ID_Loan, int ID_Item) throws SQLException{
+        String host = dbHost;
+        String user = dbUser;
+        String password = dbPassword;
+        
+        Connection con = DriverManager.getConnection(host, user, password);
+        CallableStatement st = con.prepareCall("{call ReturnBook(?, ?)}");
+        
+        st.setInt(1, ID_Loan);
+        st.setInt(2, ID_Item);
+        
+        ResultSet r = (ResultSet) st.executeQuery();
+        int result = 7;
+        
+        while(r.next()){
+        result = r.getInt("resultado");
+         
+        }
+        
+        
+        System.out.println("Stored procedure called successfully!");
+        return result;
+    }
 }
+

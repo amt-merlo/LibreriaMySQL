@@ -49,8 +49,8 @@ INSERT INTO LB.Book(ID_Clasification, ID_Item, Title, Author, EDITION, CoverPage
 VALUES(5, 8, "El juego del alma", "Javier Castillo", 2, "C:\\Users\\Allison\\Desktop\\Portadas\\eljuegodelalma.jpg", "Suma de Letras", 9);
 
 /*Personas*/
-call LB.insertPerson(305250055, 2, "Allison", "M Merlo", "18,05,2000");
-call LB.insertPerson(110520078, 3, "Farid", "Montero", "11,07,2002");
+select LB.insertPerson(305250055, 2, "Allison", "M Merlo", "18,05,2000");
+select LB.insertPerson(110520078, 3, "Farid", "Montero", "11,07,2002");
 
 /*Prestar los de Ghostgirl*/
 INSERT INTO LB.Loan_Control(ID_Person, ID_Item, Loan_Date, Return_Date, Days_Amount)

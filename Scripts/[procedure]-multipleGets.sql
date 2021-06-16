@@ -24,7 +24,7 @@ BEGIN
     ON LB.Book.ID_Clasification = LB.Book_Clasification.ID
     
     INNER JOIN LB.Loan_Control
-    ON LB.Item.ID = lb.loan_control.id_item;
+    ON LB.Item.ID = lb.loan_control.id_item AND currentlyActive = 1;
 END$$
 
 /*
@@ -32,10 +32,11 @@ Description: Procedure that get data of the loans registered to show on the app.
 Author: Allison M. Merlo
 Creation Date: 2/06/2021
 */
+DELIMITER $$
 CREATE PROCEDURE lb.get_Loans()
 MODIFIES SQL DATA
 BEGIN
-  SELECT * FROM LB.Loan_Control;
+  SELECT * FROM LB.Loan_Control WHERE currentlyActive = 1;
 END$$
 
 /*
@@ -245,6 +246,7 @@ Description: Procedure that get amount of borrowed books per clasification
 Author: Allison M. Merlo
 Creation Date: 2/06/2021
 */
+DELIMITER $$
 CREATE PROCEDURE lb.get_ClasificationCantidadesPrestados()
 MODIFIES SQL DATA
 BEGIN
@@ -260,7 +262,7 @@ BEGIN
   
     WHILE @contador <= @cantCategorias DO
         SELECT @cant; SET @cant = (SELECT COUNT(*) FROM LB.Book INNER JOIN LB.Item 
-    ON LB.Book.ID_Item = LB.Item.ID AND LB.Item.On_Loan = 1  WHERE ID_Clasification = @contador);
+    ON LB.Book.ID_Item = LB.Item.ID AND LB.Item.On_Loan = 1 WHERE ID_Clasification = @contador );
         
         INSERT INTO LB.cantxClasificacionPrestados(ID, CANT)
         VALUES(@contador, @cant);
@@ -287,7 +289,7 @@ BEGIN
 	from lb.loan_control
 
 	INNER JOIN LB.BOOK ON LB.Loan_control.ID_Item = LB.Book.ID_Item
-	group by ID_Person
+	group by LB.Loan_Control.ID_Item
 	order by 2 desc;
 END$$
 

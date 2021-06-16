@@ -19,6 +19,8 @@ import libreria.Book;
 import libreria.Person;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;  
 
 
 /**
@@ -205,6 +207,11 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
         btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRegister.setForeground(new java.awt.Color(255, 255, 255));
         btnRegister.setText("Register Loan");
+        btnRegister.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegisterMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(172, 188, 138));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
@@ -265,7 +272,7 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
@@ -290,6 +297,60 @@ public class RegistrarPrestamo extends javax.swing.JFrame {
             Logger.getLogger(ConsultaLibros.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tableBooksMouseClicked
+
+    private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tableBooks.getModel();
+        int row = tableBooks.getSelectedRow();
+        
+        DefaultTableModel model2 = (DefaultTableModel) tablePeople.getModel();
+        int row2 = tablePeople.getSelectedRow();
+        
+        System.out.println("_______________");
+        System.out.println(row+"********"+row2);
+        
+        int IDBook = (int) model.getValueAt(row, 0);
+        int IDPerson = (int) model2.getValueAt(row2, 0);
+        System.out.println(IDBook);
+        System.out.println(IDPerson);
+        
+        //Date now
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        //Giving the right format to the date
+        String fecha = dtf.format(now);
+        fecha = fecha.substring(0,10);
+        fecha = fecha.replace("/", ",");
+        String fecha2 = dtf.format(now);
+        fecha2 = fecha2.substring(0,10);
+        fecha2 = fecha2.replace("/", ",");
+        System.out.println(fecha);
+        
+        try {
+            //call function to insert on db
+            int resultado = ConnectDB.insertLoan(IDPerson, IDBook, fecha, fecha2);
+            if (resultado==0){
+                JOptionPane.showMessageDialog(null, "Loan succesfully registered!");
+            
+            }
+            else if(resultado == 2){
+                JOptionPane.showMessageDialog(null, "The book is already on loan");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error, the loan couldn´t be saved :(");
+            }
+            
+            //Get new books and people array
+            ArrayList<Book> books = new ArrayList();
+            ArrayList<Person> people = new ArrayList();
+            books = ConnectDB.get_NotBorrowed();
+            setBooks(books);
+            people = ConnectDB.get_People();
+            setPeople(people);
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(RegistrarPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRegisterMouseClicked
 
     /**
      * @param args the command line arguments

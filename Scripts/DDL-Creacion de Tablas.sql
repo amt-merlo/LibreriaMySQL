@@ -61,6 +61,13 @@ DROP PROCEDURE LB.update_Person;
 DROP PROCEDURE LB.get_logbook;
 DROP PROCEDURE LB.LogBookFiltered;
 DROP PROCEDURE LB.get_BookCoverPage;
+DROP PROCEDURE LB.insertLoan;
+DROP PROCEDURE LB.get_Top10;
+DROP PROCEDURE LB.get_ClasificationCantidadesPrestados;
+DROP PROCEDURE LB.get_ClasificationCantidades;
+DROP PROCEDURE LB.get_CCFinalPrestados;
+DROP PROCEDURE LB.get_CCFinal;
+DROP PROCEDURE LB.ReturnBook;
 
 /*Se eliminan funciones*/
 DROP FUNCTION LB.userValidation;
@@ -81,6 +88,7 @@ DROP TABLE LB.Genre;
 DROP TABLE LB.Person_Type;
 DROP TABLE LB.Users;
 DROP TABLE LB.LogBook;
+
 
 CREATE TABLE LB.Person (ID_Number INT PRIMARY KEY NOT NULL,
                         ID_PersonType INT NOT NULL,
@@ -125,6 +133,7 @@ CREATE TABLE LB.Loan_Control (ID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                               Loan_Date DATE NOT NULL, 
                               Return_Date DATE NOT NULL, 
                               Days_Amount INT NOT NULL,
+                              currentlyActive INT NOT NULL,
                               /*Campos de auditoria*/
                               CreatedOn DATE,
                               CreatedBy VARCHAR(30),
